@@ -38,7 +38,7 @@
     "handle-callback-err": "error",
     "no-unused-vars": ["error", { "vars": "local", "args": "none" }],
     "no-unused-expressions": ["error", { "allowTernary": true }],
-    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "no-plusplus": ["off", { "allowForLoopAfterthoughts": true }],
     "import/no-unresolved": "off",
     "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
     "jsx-a11y/no-static-element-interactions": "off",
