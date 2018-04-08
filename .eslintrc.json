@@ -33,6 +33,8 @@
       }
     ],
     "no-use-before-define": "off",
+    "no-shadow": "off",
+    "import/prefer-default-export": "off",
     "no-param-reassign": ["error", { "props": false }],
     "no-underscore-dangle": ["warn", { "allow": ["_id", "_rev", "_path"] }],
     "handle-callback-err": "error",
@@ -46,6 +48,7 @@
     "react/prop-types": "off",
     "react/no-unused-prop-types": "warn",
     "prettier/prettier": ["error", { "tabWidth": 4, "semi": false, "parser": "flow" }],
-    "flowtype-errors/show-errors": 2
+    "flowtype-errors/show-errors": 2,
+    "no-case-declarations": "off"
   }
 }

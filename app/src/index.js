@@ -1,15 +1,18 @@
 import React from "react"
-import { render } from "react-dom"
+import ReactDOM from "react-dom"
 import { Provider } from "react-redux"
-import { createStore } from "redux"
-import todoApp from "./reducers"
-import App from "./components/App"
+import { BrowserRouter, Route } from "react-router-dom"
 
-const store = createStore(todoApp)
+import App from "./App"
+import configureStore from "./configureStore"
 
-render(
+const store = configureStore()
+
+ReactDOM.render(
     <Provider store={store}>
-        <App />
+        <BrowserRouter>
+            <Route path="/(:filter)" component={App} />
+        </BrowserRouter>
     </Provider>,
     document.getElementById("app")
 )
