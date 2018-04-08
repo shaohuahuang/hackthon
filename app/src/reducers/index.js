@@ -21,4 +21,4 @@ export const getVisibleTodos = (state, filter) => {
 export default todos
 
 export const getIsFetching = (state, filter) =>
-    fromList.getIsFecthing(state.listByFilter[filter])
+    fromList.getIsFetching(state.listByFilter[filter])

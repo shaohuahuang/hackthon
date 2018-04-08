@@ -8,15 +8,15 @@ import { getVisibleTodos, getIsFetching } from "../reducers"
 
 class VisibleTodoList extends Component {
     componentDidMount() {
-        this.fetchTodos()
+        this.fetchData()
     }
     componentDidUpdate(prevProps) {
         if (this.props.filter !== prevProps.filter) {
-            this.fetchTodos()
+            this.fetchData()
         }
     }
 
-    fetchTodos() {
+    fetchData() {
         const { filter, fetchTodos } = this.props
         fetchTodos(filter)
     }
@@ -26,15 +26,19 @@ class VisibleTodoList extends Component {
         if (isFetching && !todos.length) {
             return <p>Loading...</p>
         }
-        return <TodoList todos={todos} onTodoClick={toggleTodo} />
+        return <TodoList todos={todos} toggleTodo={toggleTodo} />
     }
 }
 
-const mapStateToProps = (state, { params }) => ({
-    todos: getVisibleTodos(state, params.filter || "all"),
-    filter: params.filter || "all",
-    isFetching: getIsFetching(state, params.filter || "all")
-})
+const mapStateToProps = (state, { match }) => {
+    console.log(match.params.filter) // Why this triggered three times
+    const filter = match.params.filter ? match.params.filter : "all"
+    return {
+        todos: getVisibleTodos(state, filter),
+        filter,
+        isFetching: getIsFetching(state, filter)
+    }
+}
 
 // const mapDispatchToProps = dispatch =>
 //     // return {
