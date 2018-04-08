@@ -31,7 +31,6 @@ class VisibleTodoList extends Component {
 }
 
 const mapStateToProps = (state, { match }) => {
-    console.log(match.params.filter) // Why this triggered three times
     const filter = match.params.filter ? match.params.filter : "all"
     return {
         todos: getVisibleTodos(state, filter),
@@ -39,14 +38,6 @@ const mapStateToProps = (state, { match }) => {
         isFetching: getIsFetching(state, filter)
     }
 }
-
-// const mapDispatchToProps = dispatch =>
-//     // return {
-//     //   onTodoClick: id => {
-//     //     dispatch(toggleTodo(id))
-//     //   }
-//     // }
-//     bindActionCreators(toggleTodo, dispatch)
 
 const MyVisibleTodoList = withRouter(
     connect(mapStateToProps, actions)(VisibleTodoList)
