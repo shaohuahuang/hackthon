@@ -2,6 +2,7 @@ const express = require("express")
 const bodyParser = require("body-parser")
 const path = require("path")
 const routes = require("./routes/api")
+const fs = require("fs")
 
 const app = express()
 
@@ -15,6 +16,13 @@ app.use(express.static(path.join(__dirname, "..", "dist")))
 app.use(bodyParser.json({ limit: "100mb" }))
 
 app.use("/api", routes)
+
+app.get("/api/rental-slips", (req, res) => {
+    const rentalSlips = JSON.parse(
+        fs.readFileSync(path.join(__dirname, "../data/data.json"), "utf8")
+    )
+    res.json(rentalSlips)
+})
 
 // reroute all frontend routes to be handled by react-router
 app.get(/^\/(?!api).*/, (req, res) => {

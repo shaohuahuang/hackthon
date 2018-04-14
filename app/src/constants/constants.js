@@ -1,0 +1,3 @@
+export default {
+    RECEIVE_RENTAL_SLIPS: "RECEIVE_RENTAL_SLIPS"
+}
