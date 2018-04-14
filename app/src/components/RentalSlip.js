@@ -5,45 +5,20 @@ import { connect } from "react-redux"
 import styled from "styled-components"
 import muiThemeable from "material-ui/styles/muiThemeable"
 
-import Dialog from "material-ui/Dialog"
-import RaisedButton from "material-ui/RaisedButton"
-import FlatButton from "material-ui/FlatButton"
-
 import * as actions from "../actions"
 import MonthlyRentalSlip from "./MonthlyRentalSlip"
+import AddItemDialog from "./AddItemDialog"
 
 class RentalSlip extends React.Component {
-    constructor() {
-        super()
-        this.state = {
-            open: false
-        }
-        this.handleOpen = this.handleOpen.bind(this)
-        this.handleClose = this.handleClose.bind(this)
-    }
+    // constructor() {
+    //     super()
+    // }
     componentDidMount() {
         this.props.fetchRentalSlips()
     }
 
-    handleOpen() {
-        this.setState({ open: true })
-    }
-
-    handleClose() {
-        this.setState({ open: false })
-    }
-
     render() {
         const { rentalSlips, muiTheme } = this.props
-        const actions = [
-            <FlatButton
-                label="Ok"
-                primary
-                keyboardFocused
-                onClick={this.handleClose}
-            />
-        ]
-
         return (
             <List>
                 {Object.keys(rentalSlips).map(key => {
@@ -70,22 +45,7 @@ class RentalSlip extends React.Component {
                                 }}
                             >
                                 <p>{key}</p>
-                                <RaisedButton
-                                    label="Add Item"
-                                    onClick={this.handleOpen}
-                                />
-
-                                <Dialog
-                                    title="Dialog With Date Picker"
-                                    actions={actions}
-                                    modal={false}
-                                    open={this.state.open}
-                                    onRequestClose={this.handleClose}
-                                >
-                                    Open a Date Picker dialog from within a
-                                    dialog.
-                                    {/* <DatePicker hintText="Date Picker" />*/}
-                                </Dialog>
+                                <AddItemDialog />
                             </div>
                         </StyledListItem>
                     )
