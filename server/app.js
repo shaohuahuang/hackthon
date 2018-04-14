@@ -28,11 +28,11 @@ app.post("/api/rental-slips", (req, res) => {
     const rentalSlips = JSON.parse(
         fs.readFileSync(path.join(__dirname, "../data/data.json"), "utf8")
     )
-    const { month, id, item, amount, date } = req.body
+    const { month, ...item } = req.body
     if (rentalSlips[month]) {
-        rentalSlips[month].push({ id, item, amount, date })
+        rentalSlips[month].push(item)
     } else {
-        rentalSlips[month] = [{ id, item, amount, date }]
+        rentalSlips[month] = [item]
     }
     fs.writeFileSync(
         path.join(__dirname, "../data/data.json"),
