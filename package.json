@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "webpack-dev-server --env=dev --host=0.0.0.0 --public=0.0.0.0:3000 -d",
     "test": "mocha 'test/**/*.js' --compilers js:babel-core/register --require babel-polyfill",
     "lint": "eslint *",
     "format": "eslint --fix *",
