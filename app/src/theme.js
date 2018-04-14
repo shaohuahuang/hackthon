@@ -1,3 +1,6 @@
 export default {
-    background: "green"
+    background: "green",
+    rentalSlip: {
+        borderColor: "gray"
+    }
 }

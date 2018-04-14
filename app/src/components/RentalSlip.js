@@ -1,7 +1,12 @@
 import React from "react"
 import { List, ListItem } from "material-ui/List"
 import { connect } from "react-redux"
+
+import styled from "styled-components"
+import muiThemeable from "material-ui/styles/muiThemeable"
+
 import * as actions from "../actions"
+import MonthlyRentalSlip from "./MonthlyRentalSlip"
 
 class RentalSlip extends React.Component {
     componentDidMount() {
@@ -9,28 +14,36 @@ class RentalSlip extends React.Component {
     }
 
     render() {
-        const { rentalSlips } = this.props
+        const { rentalSlips, muiTheme } = this.props
         return (
             <List>
-                {Object.keys(rentalSlips).map(key => (
-                    // const monthlySlip = rentalSlips[key]
-                    <ListItem key={key} primaryText={key} />
-                ))}
-
-                {/* <ListItem primaryText={"Send Mail"} />*/}
-                {/* <ListItem primaryText={"Drafts"} />*/}
-                {/* <ListItem*/}
-                {/* primaryText={"Inbox"}*/}
-                {/* nestedItems={[*/}
-                {/* <ListItem primaryText={"Starred"} />,*/}
-                {/* <ListItem primaryText={"Sent Mail"} />*/}
-                {/* ]}*/}
-                {/* />*/}
+                {Object.keys(rentalSlips).map(key => {
+                    let monthlySlip = rentalSlips[key]
+                    if (!monthlySlip || !monthlySlip.length) monthlySlip = []
+                    return (
+                        <StyledListItem
+                            key={key}
+                            primaryText={key}
+                            data-theme={muiTheme}
+                            nestedItems={[
+                                <MonthlyRentalSlip
+                                    key="monthly"
+                                    items={monthlySlip}
+                                />
+                            ]}
+                        />
+                    )
+                })}
             </List>
         )
     }
 }
 
+const StyledListItem = styled(ListItem)`
+    border: ${props =>
+        `1px solid ${props["data-theme"].rentalSlip.borderColor} !important`};
+`
+
 const mapStateToProps = state => ({ rentalSlips: state.rentalSlips })
 
-export default connect(mapStateToProps, actions)(RentalSlip)
+export default muiThemeable()(connect(mapStateToProps, actions)(RentalSlip))
