@@ -1,23 +1,21 @@
+// @flow
+
 import constants from "../constants/constants"
+import { type Item } from "../types/item"
 
 const receiveRentalSlips = rentalSlips => ({
     type: constants.RECEIVE_RENTAL_SLIPS,
     data: rentalSlips
 })
 
-export const fetchRentalSlips = () => dispatch =>
-    fetch("/api/rental-slips")
-        .then(response => response.json())
-        .then(data => dispatch(receiveRentalSlips(data)))
-
-const addItemSuccess = ({ month, id, item, amount, date }) => ({
+const addItemSuccess = (item: Item) => ({
     type: constants.ADD_ITEM_SUCCESS,
-    data: { month, id, item, amount, date }
+    data: item
 })
 
-export const addItem = ({ month, id, item, amount, date }) => dispatch =>
+export const addItem = (item: Item): Function => dispatch =>
     fetch("/api/rental-slips", {
-        body: JSON.stringify({ month, id, item, amount, date }),
+        body: JSON.stringify(item),
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -25,7 +23,11 @@ export const addItem = ({ month, id, item, amount, date }) => dispatch =>
     })
         .then(response => response.json())
         .then(res => {
-            if (res.success)
-                dispatch(addItemSuccess({ month, id, item, amount, date }))
+            if (res.success) dispatch(addItemSuccess(item))
             else alert(res.error)
         })
+
+export const fetchRentalSlips = (): Function => dispatch =>
+    fetch("/api/rental-slips")
+        .then((response: Object) => response.json())
+        .then((data: Object) => dispatch(receiveRentalSlips(data)))
