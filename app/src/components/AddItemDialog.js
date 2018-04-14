@@ -1,49 +1,76 @@
-import React, { Fragment } from "react"
+import React from "react"
 import Dialog from "material-ui/Dialog"
 import RaisedButton from "material-ui/RaisedButton"
-import FlatButton from "material-ui/FlatButton"
+import TextField from "material-ui/TextField"
+import moment from "moment"
+import { v4 } from "node-uuid"
 
 class AddItemDialog extends React.Component {
     constructor() {
         super()
         this.state = {
-            open: false
+            item: "",
+            amount: 0,
+            date: moment().format("YYYY-MM-DD")
         }
-        this.handleOpen = this.handleOpen.bind(this)
-        this.handleClose = this.handleClose.bind(this)
+        this.onChangeItem = this.onChangeItem.bind(this)
+        this.onChangeAmount = this.onChangeAmount.bind(this)
+        this.onChangeDate = this.onChangeDate.bind(this)
+        this.onAdd = this.onAdd.bind(this)
     }
 
-    handleOpen() {
-        this.setState({ open: true })
+    onChangeItem(e, item) {
+        this.setState(() => ({
+            item
+        }))
     }
 
-    handleClose() {
-        this.setState({ open: false })
+    onChangeAmount(e, amount) {
+        this.setState(() => ({
+            amount: parseFloat(amount)
+        }))
+    }
+
+    onChangeDate(e, date) {
+        this.setState(() => ({
+            date
+        }))
+    }
+
+    onAdd() {
+        const id = v4()
+        const { month, onAdd } = this.props
+        const { item, amount, date } = this.state
+        onAdd({ month, id, item, amount, date })
+        this.props.handleClose()
     }
 
     render() {
-        const actions = [
-            <FlatButton
-                label="Ok"
+        const actionButtons = [
+            <RaisedButton
+                label="Add"
                 primary
                 keyboardFocused
-                onClick={this.handleClose}
+                onClick={this.onAdd}
             />
         ]
         return (
-            <Fragment>
-                <RaisedButton label="Add Item" onClick={this.handleOpen} />
-                <Dialog
-                    title="Dialog With Date Picker"
-                    actions={actions}
-                    modal={false}
-                    open={this.state.open}
-                    onRequestClose={this.handleClose}
-                >
-                    Open a Date Picker dialog from within a dialog.
-                    {/* <DatePicker hintText="Date Picker" />*/}
-                </Dialog>
-            </Fragment>
+            <Dialog
+                title="Dialog With Date Picker"
+                actions={actionButtons}
+                modal={false}
+                open={this.props.isOpen}
+                onRequestClose={this.props.handleClose}
+            >
+                <TextField hintText="item" onChange={this.onChangeItem} />
+                <br />
+                <TextField hintText="amount" onChange={this.onChangeAmount} />
+                <br />
+                <TextField
+                    defaultValue={moment().format("YYYY-MM-DD")}
+                    onChange={this.onChangeDate}
+                />
+            </Dialog>
         )
     }
 }

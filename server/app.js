@@ -24,6 +24,23 @@ app.get("/api/rental-slips", (req, res) => {
     res.json(rentalSlips)
 })
 
+app.post("/api/rental-slips", (req, res) => {
+    const rentalSlips = JSON.parse(
+        fs.readFileSync(path.join(__dirname, "../data/data.json"), "utf8")
+    )
+    const { month, id, item, amount, date } = req.body
+    if (rentalSlips[month]) {
+        rentalSlips[month].push({ id, item, amount, date })
+    } else {
+        rentalSlips[month] = [{ id, item, amount, date }]
+    }
+    fs.writeFileSync(
+        path.join(__dirname, "../data/data.json"),
+        JSON.stringify(rentalSlips, null, 2)
+    )
+    res.json({ success: "success" })
+})
+
 // reroute all frontend routes to be handled by react-router
 app.get(/^\/(?!api).*/, (req, res) => {
     res.sendFile(path.join(__dirname, "..", "dist", "index.html"))
