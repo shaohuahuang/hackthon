@@ -11,24 +11,6 @@
       "item": "Hansi",
       "amount": -300,
       "date": "2018-01-04"
-    },
-    {
-      "id": "a7ff003f-f5bc-416c-917f-d494a2b2052e",
-      "item": "1",
-      "amount": 1,
-      "date": "2018-04-14"
-    },
-    {
-      "id": "3eed68e6-7af5-4cce-895d-ba387453bb65",
-      "item": "xxx",
-      "amount": 12,
-      "date": "2018-04-14"
-    },
-    {
-      "id": "9ccf83b7-6c94-47a4-b8a3-715825bae0d1",
-      "item": "shaohua",
-      "amount": 100,
-      "date": "2018-04-14"
     }
   ],
   "2018-02": [
@@ -43,12 +25,6 @@
       "item": "Hansi",
       "amount": -300,
       "date": "2018-01-04"
-    },
-    {
-      "id": "2c48a339-6382-450d-a3e7-80cf09734252",
-      "item": "2",
-      "amount": 2,
-      "date": "2018-04-14"
     },
     {
       "id": "67ca7ab3-b874-43bb-afbf-bd30d022e2e1",

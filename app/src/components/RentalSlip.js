@@ -50,6 +50,7 @@ class RentalSlip extends React.Component {
                                 <MonthlyRentalSlip
                                     key="monthly"
                                     items={monthlySlip}
+                                    month={month}
                                 />
                             ]}
                         >
