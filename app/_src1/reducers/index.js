@@ -1,8 +1,8 @@
 import { combineReducers } from "redux"
-import appointments from "./appointments"
+import rentalSlips from "./rental-slips"
 
 const appData = combineReducers({
-    appointments
+    rentalSlips
 })
 
 export default appData

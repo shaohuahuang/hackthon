@@ -1,5 +1,6 @@
 import React from "react"
 import AppBar from "material-ui/AppBar"
+import Drawer from "material-ui/Drawer"
 
 class MyAppBar extends React.Component {
     constructor() {
@@ -16,10 +17,21 @@ class MyAppBar extends React.Component {
         return (
             <div>
                 <AppBar
-                    title="Branch Name"
+                    title="Title"
                     iconClassNameRight="muidocs-icon-navigation-expand-more"
                     onLeftIconButtonTouchTap={this.onToggleMenu}
                 />
+                <Drawer
+                    width={200}
+                    docked={false}
+                    open={this.state.open}
+                    onRequestChange={this.onToggleMenu}
+                >
+                    <AppBar
+                        title="AppBar"
+                        onLeftIconButtonTouchTap={this.onToggleMenu}
+                    />
+                </Drawer>
             </div>
         )
     }

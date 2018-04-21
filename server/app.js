@@ -4,6 +4,8 @@ const path = require("path")
 const routes = require("./routes/api")
 const fs = require("fs")
 
+const data = require("../data/data")
+
 const app = express()
 
 // Loading the environment port with default fallbacks
@@ -53,6 +55,10 @@ app.delete("/api/rental-slips", (req, res) => {
         JSON.stringify(rentalSlips, null, 2)
     )
     res.json({ success: "success" })
+})
+
+app.get("/api/appointments", (req, res) => {
+    res.json(data)
 })
 
 // reroute all frontend routes to be handled by react-router

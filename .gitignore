@@ -1,3 +1,5 @@
 .idea
 node_modules
 dist
+_src
+_src1
