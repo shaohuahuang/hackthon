@@ -1,7 +1,7 @@
 import React from "react"
 import { Route, Switch } from "react-router-dom"
-import Dashboard from "./components/Dashboard"
-// import Dashboard from "./components/MyReactTable"
+// import Dashboard from "./components/Dashboard"
+import Dashboard from "./components/MyReactTable/index"
 import MyAppBar from "./components/MyAppBar"
 import Login from "./components/Login"
 
