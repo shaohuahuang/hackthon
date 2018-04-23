@@ -88,7 +88,7 @@ class MyReactTable extends React.Component {
                             ]
                         }
                     ]}
-                    defaultPageSize={15}
+                    defaultPageSize={20}
                     className="-striped -highlight"
                 />
                 <br />

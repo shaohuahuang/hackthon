@@ -1,0 +1,5 @@
+applications:
+- name: dashboard
+  memory: 512M
+  host: nifty
+  buildpack: staticfile_buildpack

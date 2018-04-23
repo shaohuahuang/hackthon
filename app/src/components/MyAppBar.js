@@ -16,7 +16,7 @@ class MyAppBar extends React.Component {
         return (
             <div>
                 <AppBar
-                    title="Branch Name"
+                    title="DBS Asian Hub"
                     iconClassNameRight="muidocs-icon-navigation-expand-more"
                     onLeftIconButtonTouchTap={this.onToggleMenu}
                 />
