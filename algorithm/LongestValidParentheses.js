@@ -25,3 +25,5 @@ export function getLengthOfLongestValidString(input) {
 
     Input ")()())" ==> 4 | substring is ()()
 */
+
+// Push index into the stack
