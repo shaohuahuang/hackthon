@@ -7,5 +7,6 @@ create table cash_balance(
     amount  float not null,
     create_date datetime not null,
     rental_month VARCHAR(8) not null,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    FOREIGN KEY (rental_month) REFERENCES rental_month(rental_month)
 );

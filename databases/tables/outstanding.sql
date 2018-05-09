@@ -6,5 +6,6 @@ create table outstanding(
     outstanding  float not null,
     rental_month VARCHAR(8) not null,
     update_at timestamp,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    FOREIGN KEY (rental_month) REFERENCES rental_month(rental_month)
 );

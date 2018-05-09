@@ -1,9 +1,9 @@
 // @flow
 
 export type Item = {
-    month: string,
-    id: string,
+    id: number,
     item: string,
     amount: number,
-    date: string
+    create_date: string,
+    rental_month: string
 }

@@ -1,0 +1,42 @@
+{
+  "2018-01": [
+    {
+      "id": 1,
+      "item": "Shaohua",
+      "amount": -400,
+      "date": "2018-01-01"
+    },
+    {
+      "id": 2,
+      "item": "Hansi",
+      "amount": -300,
+      "date": "2018-01-04"
+    }
+  ],
+  "2018-02": [
+    {
+      "id": 1,
+      "item": "Shaohua",
+      "amount": -400,
+      "date": "2018-01-01"
+    },
+    {
+      "id": 2,
+      "item": "Hansi",
+      "amount": -300,
+      "date": "2018-01-04"
+    },
+    {
+      "id": "67ca7ab3-b874-43bb-afbf-bd30d022e2e1",
+      "item": "Jim",
+      "amount": 400,
+      "date": "2018-04-14"
+    },
+    {
+      "id": "25b04b85-c6a6-4188-b05d-ac9a75e7a004",
+      "item": "sxxx",
+      "amount": 13,
+      "date": "2018-04-14"
+    }
+  ]
+}
