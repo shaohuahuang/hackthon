@@ -23,7 +23,7 @@ export const addItem = (item: Item): Function => dispatch =>
     })
         .then(response => response.json())
         .then(res => {
-            if (res.success) dispatch(addItemSuccess(item))
+            if (!res.error) dispatch(addItemSuccess(res))
             else alert(res.error)
         })
 

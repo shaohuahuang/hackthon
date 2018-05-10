@@ -3,7 +3,6 @@ import Dialog from "material-ui/Dialog"
 import RaisedButton from "material-ui/RaisedButton"
 import TextField from "material-ui/TextField"
 import moment from "moment"
-import { v4 } from "node-uuid"
 
 class AddItemDialog extends React.Component {
     constructor() {
@@ -11,7 +10,7 @@ class AddItemDialog extends React.Component {
         this.state = {
             item: "",
             amount: 0,
-            date: moment().format("YYYY-MM-DD")
+            create_date: moment().format("YYYY-MM-DD")
         }
         this.onChangeItem = this.onChangeItem.bind(this)
         this.onChangeAmount = this.onChangeAmount.bind(this)
@@ -33,15 +32,14 @@ class AddItemDialog extends React.Component {
 
     onChangeDate(e, date) {
         this.setState(() => ({
-            date
+            create_date: date
         }))
     }
 
     onAdd() {
-        const id = v4()
         const { month, onAdd } = this.props
-        const { item, amount, date } = this.state
-        onAdd({ month, id, item, amount, date })
+        const { item, amount, create_date } = this.state
+        onAdd({ rental_month: month, item, amount, create_date })
         this.props.handleClose()
     }
 

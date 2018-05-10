@@ -48,20 +48,14 @@ app.get("/api/rental-slips", (req, res) => {
 })
 
 app.post("/api/rental-slips", (req, res) => {
-    const rentalSlips = JSON.parse(
-        fs.readFileSync(path.join(__dirname, "../data/data.json"), "utf8")
-    )
-    const { month, ...item } = req.body
-    if (rentalSlips[month]) {
-        rentalSlips[month].push(item)
-    } else {
-        rentalSlips[month] = [item]
-    }
-    fs.writeFileSync(
-        path.join(__dirname, "../data/data.json"),
-        JSON.stringify(rentalSlips, null, 2)
-    )
-    res.json({ success: "success" })
+    const item = req.body
+    cashBalance
+        .addItem(item)
+        .then(returnedItem => res.json(returnedItem[0][0]))
+        .catch(err => {
+            console.log(err)
+            res.json({ error: err.message })
+        })
 })
 
 app.delete("/api/rental-slips", (req, res) => {

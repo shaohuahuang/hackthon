@@ -10,6 +10,7 @@ import {
 import { connect } from "react-redux"
 import IconButton from "material-ui/IconButton"
 import FontIcon from "material-ui/FontIcon"
+import moment from "moment"
 
 import DeleteDialog from "./DeleteDialog"
 import * as actions from "../actions"
@@ -49,7 +50,11 @@ class MonthlyRentalSlip extends React.Component {
                             <TableRow key={item.id}>
                                 <TableRowColumn>{item.item}</TableRowColumn>
                                 <TableRowColumn>{item.amount}</TableRowColumn>
-                                <TableRowColumn>{item.date}</TableRowColumn>
+                                <TableRowColumn>
+                                    {moment(item.create_date).format(
+                                        "YYYY-MM-DD"
+                                    )}
+                                </TableRowColumn>
                                 <TableRowColumn>
                                     <IconButton
                                         onClick={() =>
