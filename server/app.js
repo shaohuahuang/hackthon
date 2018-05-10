@@ -6,7 +6,6 @@ const express = require("express")
 const bodyParser = require("body-parser")
 const path = require("path")
 const routes = require("./routes/api")
-const fs = require("fs")
 
 const app = express()
 
@@ -58,18 +57,15 @@ app.post("/api/rental-slips", (req, res) => {
         })
 })
 
-app.delete("/api/rental-slips", (req, res) => {
-    const rentalSlips = JSON.parse(
-        fs.readFileSync(path.join(__dirname, "../data/data.json"), "utf8")
-    )
-    const { month, ...item } = req.body
-    rentalSlips[month] = rentalSlips[month].filter(m => item.id !== m.id)
-
-    fs.writeFileSync(
-        path.join(__dirname, "../data/data.json"),
-        JSON.stringify(rentalSlips, null, 2)
-    )
-    res.json({ success: "success" })
+app.delete("/api/rental-slips/:id", (req, res) => {
+    const id = req.params.id
+    cashBalance
+        .deleteItem(id)
+        .then(() => res.json({ success: "success" }))
+        .catch(err => {
+            console.log(err)
+            res.json({ error: err.message })
+        })
 })
 
 app.get("/api/rental-months", (req, res) => {

@@ -27,14 +27,13 @@ export const addItem = (item: Item): Function => dispatch =>
             else alert(res.error)
         })
 
-const deleteItemSuccess = (item: Item) => ({
+const deleteItemSuccess = item => ({
     type: constants.DELETE_ITEM_SUCCESS,
     data: item
 })
 
 export const deleteItem = (item: Item): Function => dispatch =>
-    fetch("/api/rental-slips", {
-        body: JSON.stringify(item),
+    fetch(`/api/rental-slips/${item.id}`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json"

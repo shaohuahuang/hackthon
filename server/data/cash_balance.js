@@ -29,4 +29,9 @@ const addItem = item =>
         )
         .catch(err => console.log(err))
 
-export default { getAll, addItem }
+const deleteItem = id =>
+    db
+        .getConnection()
+        .then(conn => conn.query("delete from cash_balance where id = ?", id))
+
+export default { getAll, addItem, deleteItem }
