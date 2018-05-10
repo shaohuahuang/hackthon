@@ -1,3 +1,7 @@
+import moment from "moment"
+import rentalMonth from "./data/rental_month"
+import cashBalance from "./data/cash_balance"
+
 const express = require("express")
 const bodyParser = require("body-parser")
 const path = require("path")
@@ -17,11 +21,30 @@ app.use(bodyParser.json({ limit: "100mb" }))
 
 app.use("/api", routes)
 
+const getCurrentRentalMonth = () => moment().format("YYYY-MM")
+
 app.get("/api/rental-slips", (req, res) => {
-    const rentalSlips = JSON.parse(
-        fs.readFileSync(path.join(__dirname, "../data/data.json"), "utf8")
-    )
-    res.json(rentalSlips)
+    cashBalance
+        .getAll()
+        .then(items => {
+            const itemsGroupByRentalMonth = items.reduce((memo, item) => {
+                const arr = memo[item.rental_month]
+                if (arr) {
+                    arr.push(item)
+                } else {
+                    memo[item.rental_month] = [item]
+                }
+                return memo
+            }, {})
+            const curr = getCurrentRentalMonth()
+            if (!itemsGroupByRentalMonth[curr])
+                itemsGroupByRentalMonth[curr] = []
+            res.json(itemsGroupByRentalMonth)
+        })
+        .catch(err => {
+            console.log(err)
+            res.json({ error: "Fail to fetch rental-slips" })
+        })
 })
 
 app.post("/api/rental-slips", (req, res) => {
@@ -53,6 +76,16 @@ app.delete("/api/rental-slips", (req, res) => {
         JSON.stringify(rentalSlips, null, 2)
     )
     res.json({ success: "success" })
+})
+
+app.get("/api/rental-months", (req, res) => {
+    rentalMonth
+        .getRentalMonth()
+        .then(months => res.json(months))
+        .catch(err => {
+            console.log(err)
+            res.json({ error: "error" })
+        })
 })
 
 // reroute all frontend routes to be handled by react-router

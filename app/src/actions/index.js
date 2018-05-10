@@ -49,4 +49,6 @@ export const deleteItem = (item: Item): Function => dispatch =>
 export const fetchRentalSlips = (): Function => dispatch =>
     fetch("/api/rental-slips")
         .then((response: Object) => response.json())
-        .then((data: Object) => dispatch(receiveRentalSlips(data)))
+        .then((data: Object) => {
+            dispatch(receiveRentalSlips(data))
+        })
