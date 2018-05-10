@@ -42,6 +42,7 @@ class MonthlyRentalSlip extends React.Component {
                             <TableHeaderColumn>Item</TableHeaderColumn>
                             <TableHeaderColumn>Amount</TableHeaderColumn>
                             <TableHeaderColumn>Date</TableHeaderColumn>
+                            <TableHeaderColumn>Edit</TableHeaderColumn>
                             <TableHeaderColumn>Delete</TableHeaderColumn>
                         </TableRow>
                     </TableHeader>
@@ -54,6 +55,22 @@ class MonthlyRentalSlip extends React.Component {
                                     {moment(item.create_date).format(
                                         "YYYY-MM-DD"
                                     )}
+                                </TableRowColumn>
+                                <TableRowColumn>
+                                    <IconButton
+                                        onClick={() =>
+                                            this.onToggleDialog({
+                                                ...item,
+                                                month
+                                            })}
+                                    >
+                                        <FontIcon
+                                            className="material-icons"
+                                            color="blue"
+                                        >
+                                            edit
+                                        </FontIcon>
+                                    </IconButton>
                                 </TableRowColumn>
                                 <TableRowColumn>
                                     <IconButton
