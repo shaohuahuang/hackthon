@@ -51,3 +51,5 @@ export const fetchRentalSlips = (): Function => dispatch =>
         .then((data: Object) => {
             dispatch(receiveRentalSlips(data))
         })
+
+export const updateItem = (item: Item): Function => dispatch => null

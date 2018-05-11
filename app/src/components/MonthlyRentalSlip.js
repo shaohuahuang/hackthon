@@ -13,27 +13,37 @@ import FontIcon from "material-ui/FontIcon"
 import moment from "moment"
 
 import DeleteDialog from "./DeleteDialog"
+import UpdateItemDialog from "./UpdateItemDialog"
 import * as actions from "../actions"
 
 class MonthlyRentalSlip extends React.Component {
     constructor() {
         super()
         this.state = {
-            isOpen: false,
+            isDeleteDialogOpen: false,
+            isUpdateDialogOpen: false,
             selectedItem: {}
         }
-        this.onToggleDialog = this.onToggleDialog.bind(this)
+        this.onToggleDeleteDialog = this.onToggleDeleteDialog.bind(this)
+        this.onToggleUpdateDialog = this.onToggleUpdateDialog.bind(this)
     }
 
-    onToggleDialog(item) {
+    onToggleDeleteDialog(item) {
         this.setState(prev => ({
             selectedItem: item,
-            isOpen: !prev.isOpen
+            isDeleteDialogOpen: !prev.isDeleteDialogOpen
+        }))
+    }
+
+    onToggleUpdateDialog(item) {
+        this.setState(prev => ({
+            selectedItem: item,
+            isUpdateDialogOpen: !prev.isUpdateDialogOpen
         }))
     }
 
     render() {
-        const { month, items } = this.props
+        const { items } = this.props
         return (
             <div>
                 <Table>
@@ -59,10 +69,7 @@ class MonthlyRentalSlip extends React.Component {
                                 <TableRowColumn>
                                     <IconButton
                                         onClick={() =>
-                                            this.onToggleDialog({
-                                                ...item,
-                                                month
-                                            })}
+                                            this.onToggleUpdateDialog(item)}
                                     >
                                         <FontIcon
                                             className="material-icons"
@@ -75,10 +82,7 @@ class MonthlyRentalSlip extends React.Component {
                                 <TableRowColumn>
                                     <IconButton
                                         onClick={() =>
-                                            this.onToggleDialog({
-                                                ...item,
-                                                month
-                                            })}
+                                            this.onToggleDeleteDialog(item)}
                                     >
                                         <FontIcon
                                             className="material-icons"
@@ -94,10 +98,17 @@ class MonthlyRentalSlip extends React.Component {
                 </Table>
 
                 <DeleteDialog
-                    isOpen={this.state.isOpen}
-                    onClose={this.onToggleDialog}
+                    isOpen={this.state.isDeleteDialogOpen}
+                    onClose={this.onToggleDeleteDialog}
                     onDelete={() =>
                         this.props.deleteItem(this.state.selectedItem)}
+                />
+
+                <UpdateItemDialog
+                    isOpen={this.state.isUpdateDialogOpen}
+                    onClose={this.onToggleUpdateDialog}
+                    onUpdate={this.props.onUpdateItem}
+                    item={this.state.selectedItem}
                 />
             </div>
         )

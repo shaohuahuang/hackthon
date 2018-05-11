@@ -2,7 +2,7 @@ import React from "react"
 import Dialog from "material-ui/Dialog"
 import RaisedButton from "material-ui/RaisedButton"
 
-class AddItemDialog extends React.Component {
+class DeleteDialog extends React.Component {
     constructor() {
         super()
         this.onDelete = this.onDelete.bind(this)
@@ -24,7 +24,7 @@ class AddItemDialog extends React.Component {
         ]
         return (
             <Dialog
-                title="Dialog With Date Picker"
+                title="Confirm to delete the item?"
                 actions={actionButtons}
                 modal={false}
                 open={this.props.isOpen}
@@ -36,4 +36,4 @@ class AddItemDialog extends React.Component {
     }
 }
 
-export default AddItemDialog
+export default DeleteDialog

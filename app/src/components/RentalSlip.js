@@ -8,6 +8,7 @@ import muiThemeable from "material-ui/styles/muiThemeable"
 import RaisedButton from "material-ui/RaisedButton"
 
 import * as actions from "../actions"
+import * as selectActions from "../actions/select-actions"
 import MonthlyRentalSlip from "./MonthlyRentalSlip"
 import AddItemDialog from "./AddItemDialog"
 
@@ -15,8 +16,7 @@ class RentalSlip extends React.Component {
     constructor() {
         super()
         this.state = {
-            open: false,
-            selectedMonth: ""
+            open: false
         }
         this.handleOpen = this.handleOpen.bind(this)
         this.handleClose = this.handleClose.bind(this)
@@ -27,7 +27,10 @@ class RentalSlip extends React.Component {
     }
 
     handleOpen(month) {
-        return () => this.setState({ open: true, selectedMonth: month })
+        return () => {
+            this.props.selectRentalMonth(month)
+            this.setState({ open: true })
+        }
     }
 
     handleClose() {
@@ -35,7 +38,7 @@ class RentalSlip extends React.Component {
     }
 
     render() {
-        const { rentalSlips, muiTheme } = this.props
+        const { rentalSlips, muiTheme, dialog } = this.props
         return (
             <List>
                 {Object.keys(rentalSlips).map(month => {
@@ -74,7 +77,7 @@ class RentalSlip extends React.Component {
                     isOpen={this.state.open}
                     handleClose={this.handleClose}
                     onAdd={this.props.addItem}
-                    month={this.state.selectedMonth}
+                    month={dialog.selectedRentalMonth}
                 />
             </List>
         )
@@ -88,6 +91,11 @@ const StyledListItem = styled(ListItem)`
         `1px solid ${props["data-theme"].rentalSlip.borderColor} !important`};
 `
 
-const mapStateToProps = state => ({ rentalSlips: state.rentalSlips })
+const mapStateToProps = state => ({
+    rentalSlips: state.rentalSlips,
+    dialog: state.dialog
+})
 
-export default muiThemeable()(connect(mapStateToProps, actions)(RentalSlip))
+export default muiThemeable()(
+    connect(mapStateToProps, { ...actions, ...selectActions })(RentalSlip)
+)

@@ -54,7 +54,7 @@ class AddItemDialog extends React.Component {
         ]
         return (
             <Dialog
-                title="Dialog With Date Picker"
+                title="Add Item"
                 actions={actionButtons}
                 modal={false}
                 open={this.props.isOpen}
