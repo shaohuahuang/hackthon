@@ -11,6 +11,8 @@ const dialog = (state = initialState, action) => {
             return { ...state, selectedRentalMonth: action.rental_month }
         case constants.SELECT_ITEM:
             return { ...state, selectedItem: action.item }
+        // case constants.DELETE_ITEM_SUCCESS:
+        //     return { ...state, selectedItem: {} }
         default:
             return state
     }

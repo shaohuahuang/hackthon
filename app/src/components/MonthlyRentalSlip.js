@@ -15,6 +15,7 @@ import moment from "moment"
 import DeleteDialog from "./DeleteDialog"
 import UpdateItemDialog from "./UpdateItemDialog"
 import * as actions from "../actions"
+import * as selectActions from "../actions/select-actions"
 
 class MonthlyRentalSlip extends React.Component {
     constructor() {
@@ -29,6 +30,7 @@ class MonthlyRentalSlip extends React.Component {
     }
 
     onToggleDeleteDialog(item) {
+        this.props.selectItem(item)
         this.setState(prev => ({
             selectedItem: item,
             isDeleteDialogOpen: !prev.isDeleteDialogOpen
@@ -36,6 +38,7 @@ class MonthlyRentalSlip extends React.Component {
     }
 
     onToggleUpdateDialog(item) {
+        this.props.selectItem(item)
         this.setState(prev => ({
             selectedItem: item,
             isUpdateDialogOpen: !prev.isUpdateDialogOpen
@@ -43,7 +46,7 @@ class MonthlyRentalSlip extends React.Component {
     }
 
     render() {
-        const { items } = this.props
+        const { items, dialog } = this.props
         return (
             <div>
                 <Table>
@@ -100,19 +103,24 @@ class MonthlyRentalSlip extends React.Component {
                 <DeleteDialog
                     isOpen={this.state.isDeleteDialogOpen}
                     onClose={this.onToggleDeleteDialog}
-                    onDelete={() =>
-                        this.props.deleteItem(this.state.selectedItem)}
+                    onDelete={() => this.props.deleteItem(dialog.selectedItem)}
                 />
 
                 <UpdateItemDialog
                     isOpen={this.state.isUpdateDialogOpen}
                     onClose={this.onToggleUpdateDialog}
                     onUpdate={this.props.onUpdateItem}
-                    item={this.state.selectedItem}
+                    item={dialog.selectedItem}
                 />
             </div>
         )
     }
 }
 
-export default connect(null, actions)(MonthlyRentalSlip)
+const mapStateToProps = state => ({
+    dialog: state.dialog
+})
+
+export default connect(mapStateToProps, { ...actions, ...selectActions })(
+    MonthlyRentalSlip
+)
