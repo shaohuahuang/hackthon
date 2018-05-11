@@ -38,10 +38,16 @@ class UpdateItemDialog extends React.Component {
     }
 
     onUpdate() {
-        const { onUpdate } = this.props
+        const { updateItem } = this.props
         const { rental_month, id } = this.props.item
-        const { item, amount, create_date } = this.state
-        onUpdate({ rental_month, id, item, amount, create_date })
+        const { item, amount, create_date: createDate } = this.state
+        updateItem({
+            rental_month,
+            id,
+            item: item || this.props.item.item,
+            amount: amount || this.props.item.amount,
+            create_date: createDate || this.props.item.create_date
+        })
         this.onClose()
     }
 
@@ -56,8 +62,8 @@ class UpdateItemDialog extends React.Component {
     }
 
     render() {
-        const { item } = this.props
-        if (!item) return null
+        if (!this.props.item) return null
+        const { item, amount, create_date: createDate } = this.props.item
         const actionButtons = [
             <RaisedButton
                 label="Update"
@@ -78,20 +84,20 @@ class UpdateItemDialog extends React.Component {
                     id="item"
                     hintText="item"
                     onChange={this.onChangeItem}
-                    value={this.state.item || item.item}
+                    value={this.state.item || item}
                 />
                 <br />
                 <TextField
                     id="amount"
                     hintText="amount"
                     onChange={this.onChangeAmount}
-                    defaultValue={this.state.amount || item.amount}
+                    defaultValue={this.state.amount || amount}
                 />
                 <br />
                 <TextField
                     id="create_date"
                     defaultValue={moment(
-                        this.state.create_date || item.create_date
+                        this.state.create_date || createDate
                     ).format("YYYY-MM-DD")}
                     onChange={this.onChangeDate}
                 />

@@ -7,6 +7,7 @@ const rentalSlips = (state = {}, action) => {
             return action.data
         case constants.ADD_ITEM_SUCCESS:
         case constants.DELETE_ITEM_SUCCESS:
+        case constants.UPDATE_ITEM_SUCCESS:
             const nextState = { ...state }
             const { rental_month } = action.data
             nextState[rental_month] = rentalSlipsByMonth(

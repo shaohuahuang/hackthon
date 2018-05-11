@@ -57,6 +57,17 @@ app.post("/api/rental-slips", (req, res) => {
         })
 })
 
+app.put("/api/rental-slips", (req, res) => {
+    const item = req.body
+    cashBalance
+        .updateItem(item)
+        .then(() => res.json({ success: true }))
+        .catch(err => {
+            console.log(err)
+            res.json({ error: err.message })
+        })
+})
+
 app.delete("/api/rental-slips/:id", (req, res) => {
     const id = req.params.id
     cashBalance

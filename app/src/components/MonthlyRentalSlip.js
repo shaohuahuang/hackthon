@@ -22,8 +22,7 @@ class MonthlyRentalSlip extends React.Component {
         super()
         this.state = {
             isDeleteDialogOpen: false,
-            isUpdateDialogOpen: false,
-            selectedItem: {}
+            isUpdateDialogOpen: false
         }
         this.onToggleDeleteDialog = this.onToggleDeleteDialog.bind(this)
         this.onToggleUpdateDialog = this.onToggleUpdateDialog.bind(this)
@@ -32,7 +31,6 @@ class MonthlyRentalSlip extends React.Component {
     onToggleDeleteDialog(item) {
         this.props.selectItem(item)
         this.setState(prev => ({
-            selectedItem: item,
             isDeleteDialogOpen: !prev.isDeleteDialogOpen
         }))
     }
@@ -40,7 +38,6 @@ class MonthlyRentalSlip extends React.Component {
     onToggleUpdateDialog(item) {
         this.props.selectItem(item)
         this.setState(prev => ({
-            selectedItem: item,
             isUpdateDialogOpen: !prev.isUpdateDialogOpen
         }))
     }
@@ -109,7 +106,7 @@ class MonthlyRentalSlip extends React.Component {
                 <UpdateItemDialog
                     isOpen={this.state.isUpdateDialogOpen}
                     onClose={this.onToggleUpdateDialog}
-                    onUpdate={this.props.onUpdateItem}
+                    updateItem={this.props.updateItem}
                     item={dialog.selectedItem}
                 />
             </div>

@@ -13,6 +13,11 @@ const addItemSuccess = (item: Item) => ({
     data: item
 })
 
+const updateItemSuccess = (item: Item) => ({
+    type: constants.UPDATE_ITEM_SUCCESS,
+    data: item
+})
+
 export const addItem = (item: Item): Function => dispatch =>
     fetch("/api/rental-slips", {
         body: JSON.stringify(item),
@@ -52,4 +57,16 @@ export const fetchRentalSlips = (): Function => dispatch =>
             dispatch(receiveRentalSlips(data))
         })
 
-export const updateItem = (item: Item): Function => dispatch => null
+export const updateItem = (item: Item): Function => dispatch =>
+    fetch("/api/rental-slips", {
+        body: JSON.stringify(item),
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(response => response.json())
+        .then(res => {
+            if (!res.error) dispatch(updateItemSuccess(item))
+            else alert(res.error)
+        })

@@ -2,7 +2,6 @@ import constants from "../constants/constants"
 
 const rentalSlipsByMonth = (state = [], action) => {
     let nextState = [...state]
-    delete action.data.month
     const item = action.data
 
     switch (action.type) {
@@ -11,6 +10,10 @@ const rentalSlipsByMonth = (state = [], action) => {
             return nextState
         case constants.DELETE_ITEM_SUCCESS:
             nextState = nextState.filter(m => item.id !== m.id)
+            return nextState
+        case constants.UPDATE_ITEM_SUCCESS:
+            const index = nextState.findIndex(m => item.id === m.id)
+            nextState[index] = item
             return nextState
         default:
             return state

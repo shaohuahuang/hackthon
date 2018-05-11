@@ -1,3 +1,4 @@
+import moment from "moment"
 import db from "../util/db"
 
 const getAll = () =>
@@ -29,9 +30,19 @@ const addItem = item =>
         )
         .catch(err => console.log(err))
 
+const updateItem = ({ id, item, amount, create_date: createDate }) =>
+    db
+        .getConnection()
+        .then(conn =>
+            conn.query(
+                "update cash_balance set item= ?, amount= ?, create_date= ? where id = ?",
+                [item, amount, moment(createDate).format("YYYY-MM-DD"), id]
+            )
+        )
+
 const deleteItem = id =>
     db
         .getConnection()
         .then(conn => conn.query("delete from cash_balance where id = ?", id))
 
-export default { getAll, addItem, deleteItem }
+export default { getAll, addItem, deleteItem, updateItem }
