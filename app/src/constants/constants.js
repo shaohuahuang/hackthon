@@ -6,5 +6,8 @@ export default {
 
     // constants for select actions
     SELECT_RENTAL_MONTH: "SELECT_RENTAL_MONTH",
-    SELECT_ITEM: "SELECT_ITEM"
+    SELECT_ITEM: "SELECT_ITEM",
+
+    // for outstanding
+    RECEIVE_OUTSTANDINGS: "RECEIVE_OUTSTANDINGS"
 }

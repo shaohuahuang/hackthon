@@ -1,6 +1,7 @@
 import moment from "moment"
 import rentalMonth from "./data/rental_month"
 import cashBalance from "./data/cash_balance"
+import outstanding from "./data/outstanding"
 
 const express = require("express")
 const bodyParser = require("body-parser")
@@ -21,6 +22,23 @@ app.use(bodyParser.json({ limit: "100mb" }))
 app.use("/api", routes)
 
 const getCurrentRentalMonth = () => moment().format("YYYY-MM")
+
+app.get("/api/outstandings", (req, res) => {
+    outstanding
+        .getAll()
+        .then(rows => {
+            res.json(
+                rows.reduce((memo, row) => {
+                    memo[row.rental_month] = row
+                    return memo
+                }, {})
+            )
+        })
+        .catch(err => {
+            console.log(err)
+            res.json({ error: "fail to get outstanding" })
+        })
+})
 
 app.get("/api/rental-slips", (req, res) => {
     cashBalance

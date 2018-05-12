@@ -9,8 +9,14 @@ import RaisedButton from "material-ui/RaisedButton"
 
 import * as actions from "../actions"
 import * as selectActions from "../actions/select-actions"
+import * as outstandingActions from "../actions/outstanding-actions"
 import MonthlyRentalSlip from "./MonthlyRentalSlip"
 import AddItemDialog from "./AddItemDialog"
+
+function isLastTwoMonth(month, lastTwoMonths) {
+    const find = lastTwoMonths.find(m => m === month)
+    return !!find
+}
 
 class RentalSlip extends React.Component {
     constructor() {
@@ -20,10 +26,19 @@ class RentalSlip extends React.Component {
         }
         this.handleOpen = this.handleOpen.bind(this)
         this.handleClose = this.handleClose.bind(this)
+        this.getLastTwoMonths = this.getLastTwoMonths.bind(this)
     }
 
     componentDidMount() {
         this.props.fetchRentalSlips()
+        this.props.fetchOutstandings()
+    }
+
+    getLastTwoMonths() {
+        const { rentalSlips } = this.props
+        const keys = Object.keys(rentalSlips)
+        if (keys.length <= 2) return keys
+        return keys.slice(-2)
     }
 
     handleOpen(month) {
@@ -38,7 +53,8 @@ class RentalSlip extends React.Component {
     }
 
     render() {
-        const { rentalSlips, muiTheme, dialog } = this.props
+        const { rentalSlips, muiTheme, dialog, outstandings } = this.props
+        const lastTwoMonths = this.getLastTwoMonths()
         return (
             <List>
                 {Object.keys(rentalSlips).map(month => {
@@ -54,6 +70,10 @@ class RentalSlip extends React.Component {
                                     key="monthly"
                                     items={monthlySlip}
                                     month={month}
+                                    isLastTwoMonth={isLastTwoMonth(
+                                        month,
+                                        lastTwoMonths
+                                    )}
                                 />
                             ]}
                         >
@@ -65,10 +85,18 @@ class RentalSlip extends React.Component {
                                 }}
                             >
                                 <p>{month}</p>
-                                <RaisedButton
-                                    label="Add Item"
-                                    onClick={this.handleOpen(month)}
-                                />
+                                <p>
+                                    Outstanding:{" "}
+                                    {outstandings[month]
+                                        ? outstandings[month].outstanding
+                                        : null}
+                                </p>
+                                {isLastTwoMonth(month, lastTwoMonths) ? (
+                                    <RaisedButton
+                                        label="Add Item"
+                                        onClick={this.handleOpen(month)}
+                                    />
+                                ) : null}
                             </div>
                         </StyledListItem>
                     )
@@ -93,9 +121,14 @@ const StyledListItem = styled(ListItem)`
 
 const mapStateToProps = state => ({
     rentalSlips: state.rentalSlips,
-    dialog: state.dialog
+    dialog: state.dialog,
+    outstandings: state.outstandings
 })
 
 export default muiThemeable()(
-    connect(mapStateToProps, { ...actions, ...selectActions })(RentalSlip)
+    connect(mapStateToProps, {
+        ...actions,
+        ...selectActions,
+        ...outstandingActions
+    })(RentalSlip)
 )
