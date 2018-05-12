@@ -60,11 +60,20 @@ class AddItemDialog extends React.Component {
                 open={this.props.isOpen}
                 onRequestClose={this.props.handleClose}
             >
-                <TextField hintText="item" onChange={this.onChangeItem} />
-                <br />
-                <TextField hintText="amount" onChange={this.onChangeAmount} />
+                <TextField
+                    id="item"
+                    hintText="item"
+                    onChange={this.onChangeItem}
+                />
                 <br />
                 <TextField
+                    id="amount"
+                    hintText="amount"
+                    onChange={this.onChangeAmount}
+                />
+                <br />
+                <TextField
+                    id="create_date"
                     defaultValue={moment().format("YYYY-MM-DD")}
                     onChange={this.onChangeDate}
                 />
