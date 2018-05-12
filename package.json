@@ -30,7 +30,7 @@
     }
   },
   "nodemonConfig": {
-    "ignore": ["src/*"]
+    "ignore": ["app/**/*"]
   },
   "dependencies": {
     "body-parser": "^1.17.2",

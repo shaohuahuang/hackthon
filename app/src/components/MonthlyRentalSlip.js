@@ -43,7 +43,7 @@ class MonthlyRentalSlip extends React.Component {
     }
 
     render() {
-        const { items, dialog } = this.props
+        const { items, dialog, isLastTwoMonth } = this.props
         return (
             <div>
                 <Table>
@@ -52,8 +52,12 @@ class MonthlyRentalSlip extends React.Component {
                             <TableHeaderColumn>Item</TableHeaderColumn>
                             <TableHeaderColumn>Amount</TableHeaderColumn>
                             <TableHeaderColumn>Date</TableHeaderColumn>
-                            <TableHeaderColumn>Edit</TableHeaderColumn>
-                            <TableHeaderColumn>Delete</TableHeaderColumn>
+                            {isLastTwoMonth ? (
+                                <TableHeaderColumn>Edit</TableHeaderColumn>
+                            ) : null}
+                            {isLastTwoMonth ? (
+                                <TableHeaderColumn>Delete</TableHeaderColumn>
+                            ) : null}
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -66,32 +70,38 @@ class MonthlyRentalSlip extends React.Component {
                                         "YYYY-MM-DD"
                                     )}
                                 </TableRowColumn>
-                                <TableRowColumn>
-                                    <IconButton
-                                        onClick={() =>
-                                            this.onToggleUpdateDialog(item)}
-                                    >
-                                        <FontIcon
-                                            className="material-icons"
-                                            color="blue"
+
+                                {isLastTwoMonth ? (
+                                    <TableRowColumn>
+                                        <IconButton
+                                            onClick={() =>
+                                                this.onToggleUpdateDialog(item)}
                                         >
-                                            edit
-                                        </FontIcon>
-                                    </IconButton>
-                                </TableRowColumn>
-                                <TableRowColumn>
-                                    <IconButton
-                                        onClick={() =>
-                                            this.onToggleDeleteDialog(item)}
-                                    >
-                                        <FontIcon
-                                            className="material-icons"
-                                            color="red"
+                                            <FontIcon
+                                                className="material-icons"
+                                                color="blue"
+                                            >
+                                                edit
+                                            </FontIcon>
+                                        </IconButton>
+                                    </TableRowColumn>
+                                ) : null}
+
+                                {isLastTwoMonth ? (
+                                    <TableRowColumn>
+                                        <IconButton
+                                            onClick={() =>
+                                                this.onToggleDeleteDialog(item)}
                                         >
-                                            delete
-                                        </FontIcon>
-                                    </IconButton>
-                                </TableRowColumn>
+                                            <FontIcon
+                                                className="material-icons"
+                                                color="red"
+                                            >
+                                                delete
+                                            </FontIcon>
+                                        </IconButton>
+                                    </TableRowColumn>
+                                ) : null}
                             </TableRow>
                         ))}
                     </TableBody>

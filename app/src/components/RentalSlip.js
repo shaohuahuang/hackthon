@@ -59,6 +59,7 @@ class RentalSlip extends React.Component {
             <List>
                 {Object.keys(rentalSlips).map(month => {
                     let monthlySlip = rentalSlips[month]
+                    const isLastTwo = isLastTwoMonth(month, lastTwoMonths)
                     if (!monthlySlip || !monthlySlip.length) monthlySlip = []
                     return (
                         <StyledListItem
@@ -70,10 +71,7 @@ class RentalSlip extends React.Component {
                                     key="monthly"
                                     items={monthlySlip}
                                     month={month}
-                                    isLastTwoMonth={isLastTwoMonth(
-                                        month,
-                                        lastTwoMonths
-                                    )}
+                                    isLastTwoMonth={isLastTwo}
                                 />
                             ]}
                         >
@@ -91,7 +89,7 @@ class RentalSlip extends React.Component {
                                         ? outstandings[month].outstanding
                                         : null}
                                 </p>
-                                {isLastTwoMonth(month, lastTwoMonths) ? (
+                                {isLastTwo ? (
                                     <RaisedButton
                                         label="Add Item"
                                         onClick={this.handleOpen(month)}
