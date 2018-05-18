@@ -12,11 +12,7 @@ import * as selectActions from "../actions/select-actions"
 import * as outstandingActions from "../actions/outstanding-actions"
 import MonthlyRentalSlip from "./MonthlyRentalSlip"
 import AddItemDialog from "./AddItemDialog"
-
-function isLastTwoMonth(month, lastTwoMonths) {
-    const find = lastTwoMonths.find(m => m === month)
-    return !!find
-}
+import { isLastTwoMonth, getLastTwoMonths } from "../util/util"
 
 class RentalSlip extends React.Component {
     constructor() {
@@ -26,19 +22,11 @@ class RentalSlip extends React.Component {
         }
         this.handleOpen = this.handleOpen.bind(this)
         this.handleClose = this.handleClose.bind(this)
-        this.getLastTwoMonths = this.getLastTwoMonths.bind(this)
     }
 
     componentDidMount() {
         this.props.fetchRentalSlips()
         this.props.fetchOutstandings()
-    }
-
-    getLastTwoMonths() {
-        const { rentalSlips } = this.props
-        const keys = Object.keys(rentalSlips)
-        if (keys.length <= 2) return keys
-        return keys.slice(-2)
     }
 
     handleOpen(month) {
@@ -54,7 +42,7 @@ class RentalSlip extends React.Component {
 
     render() {
         const { rentalSlips, muiTheme, dialog, outstandings } = this.props
-        const lastTwoMonths = this.getLastTwoMonths()
+        const lastTwoMonths = getLastTwoMonths()
         return (
             <List>
                 {Object.keys(rentalSlips).map(month => {

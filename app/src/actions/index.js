@@ -2,6 +2,8 @@
 
 import constants from "../constants/constants"
 import { type Item } from "../types/item"
+// import { isLastSecond, getLastTwoMonthsObj } from "../util/util"
+import { getLastTwoMonthsObj } from "../util/util"
 
 const receiveRentalSlips = rentalSlips => ({
     type: constants.RECEIVE_RENTAL_SLIPS,
@@ -18,7 +20,7 @@ const updateItemSuccess = (item: Item) => ({
     data: item
 })
 
-export const addItem = (item: Item): Function => dispatch =>
+export const addItem = (item: Item): Function => (dispatch, store) =>
     fetch("/api/rental-slips", {
         body: JSON.stringify(item),
         method: "POST",
@@ -28,8 +30,16 @@ export const addItem = (item: Item): Function => dispatch =>
     })
         .then(response => response.json())
         .then(res => {
-            if (!res.error) dispatch(addItemSuccess(res))
-            else alert(res.error)
+            if (!res.error) {
+                dispatch(addItemSuccess(res))
+
+                const { rentalSlips } = store.getState()
+                const { lastSecondMonth } = getLastTwoMonthsObj(rentalSlips)
+
+                if (lastSecondMonth === item.rental_month) {
+                    // fetch("/api/outstanding")
+                }
+            } else alert(res.error)
         })
 
 const deleteItemSuccess = item => ({

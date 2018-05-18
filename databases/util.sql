@@ -1,5 +1,8 @@
+use mydb;
 
 -- delete contents from all tables
+start transaction;
+
 SET SQL_SAFE_UPDATES = 0;
 delete from cash_balance;
 delete from outstanding;
@@ -76,3 +79,5 @@ insert into outstanding (outstanding, rental_month) values
 (-297.34, '2018-03'),
 (-469.54, '2018-04'),
 (-120.59, '2018-05');
+
+commit;
