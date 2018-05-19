@@ -20,7 +20,7 @@ source ./util.sh
 
 #---------------Test insertion------------------------------------
 clearTables
-mysql < ../databases/functions/get_rental_months.sql
+mysql < ../databases/functions/get_prev_month.sql
 mysql < ../databases/triggers/trigger_cash_balance_before_insert.sql
 
 mysql mydb -e \
