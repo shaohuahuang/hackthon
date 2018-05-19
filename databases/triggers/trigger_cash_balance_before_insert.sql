@@ -15,7 +15,7 @@ begin
 		if not exists (select * from rental_month where `rental_month` = new.rental_month) then
             insert into rental_month values (new.rental_month);
         end if;
-    end if;
+   end if;
 end;#
 delimiter ;
 

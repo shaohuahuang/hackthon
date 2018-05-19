@@ -20,13 +20,17 @@ source ./util.sh
 
 #---------------Test insertion------------------------------------
 clearTables
+mysql < ../databases/functions/get_prev_prev_month.sql
 mysql < ../databases/functions/get_prev_month.sql
+mysql < ../databases/functions/get_curr_month.sql
+mysql < ../databases/functions/get_next_month.sql
 mysql < ../databases/triggers/trigger_cash_balance_before_insert.sql
 
 mysql mydb -e \
     "
-        call get_rental_months(now(), @prevPrevMonth, @prevMonth, @currMonth, @nextMonth);
+        set @prevPrevMonth = get_prev_prev_month(NOW());
         insert into cash_balance (item, amount, create_date, rental_month) values
         ('shaohua',	10,	'2018-03-01',@prevPrevMonth);
     "
 displayTables
+
