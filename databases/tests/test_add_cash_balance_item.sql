@@ -14,6 +14,8 @@ SET SQL_SAFE_UPDATES = 1;
 set @prevPrevMonth = NOW()
 set
 
+
+
 call add_cash_balance_item ('shaohua', 10, NOW(), rental_month varchar(8))
 
 
