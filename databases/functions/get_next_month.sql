@@ -8,8 +8,11 @@ create function get_next_month (
 )
 returns char(7)
 begin
-    set @firstDayDate = get_curr_month_first_day(now);
-    set @nextMonth = DATE_FORMAT(ADDDATE(@firstDayDate, interval 1 month), "%Y-%m");
-    return @nextMonth;
+    declare firstDayDate date;
+    declare nextMonth char(7);
+
+    set firstDayDate = get_curr_month_first_day(now);
+    set nextMonth = DATE_FORMAT(ADDDATE(firstDayDate, interval 1 month), "%Y-%m");
+    return nextMonth;
 end#
 delimiter ;

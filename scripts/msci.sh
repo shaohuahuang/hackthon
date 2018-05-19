@@ -6,6 +6,11 @@ mysql < ../databases/functions/get_prev_prev_month.sql
 
 mysql mydb -e \
     "
+        select get_curr_month_first_day(now());
+    "
+
+mysql mydb -e \
+    "
         select get_prev_prev_month(now());
     "
 

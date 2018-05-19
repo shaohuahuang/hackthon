@@ -8,8 +8,11 @@ create function get_curr_month (
 )
 returns char(7)
 begin
-    set @firstDayDate = get_curr_month_first_day(now);
-    set @currMonth = DATE_FORMAT(@firstDayDate, "%Y-%m");
-    return @currMonth;
+    declare firstDayDate date;
+    declare currMonth char(7);
+
+    set firstDayDate = get_curr_month_first_day(now);
+    set currMonth = DATE_FORMAT(firstDayDate, "%Y-%m");
+    return currMonth;
 end#
 delimiter ;

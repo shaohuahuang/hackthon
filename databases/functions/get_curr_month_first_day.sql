@@ -8,20 +8,27 @@ create function get_curr_month_first_day (
 )
 returns date
 begin
-    set @month = MONTH(now);
-    set @year = YEAR(now);
-    set @day = DAY(now);
-    set @currYear = @year;
-    set @currMonth = @month;
-    if @day >= 23 then
-        if @month = 12 then
-            set @currYear = @currYear + 1;
-            set @currMonth = 1;
+	declare month int;
+    declare year int;
+	declare day int;
+    declare currYear int;
+	declare currMonth int;
+    declare firstDayDate date;
+
+    set month = MONTH(now);
+    set year = YEAR(now);
+    set day = DAY(now);
+    set currYear = year;
+    set currMonth = month;
+    if day >= 23 then
+        if month = 12 then
+            set currYear = currYear + 1;
+            set currMonth = 1;
         else
-            set @currMonth = @currMonth + 1;
+            set currMonth = currMonth + 1;
         end if;
     end if;
-    set @firstDayDate = CONCAT(@currYear, '-', @currMonth, '-01');
-    return @firstDayDate;
+    set firstDayDate = CONCAT(currYear, '-', currMonth, '-01');
+    return firstDayDate;
 end#
 delimiter ;

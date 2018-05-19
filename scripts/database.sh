@@ -20,12 +20,14 @@ source ./util.sh
 
 #---------------Test insertion------------------------------------
 clearTables
+mysql < ../databases/functions/get_curr_month_first_day.sql
 mysql < ../databases/functions/get_prev_prev_month.sql
 mysql < ../databases/functions/get_prev_month.sql
 mysql < ../databases/functions/get_curr_month.sql
 mysql < ../databases/functions/get_next_month.sql
 mysql < ../databases/triggers/trigger_cash_balance_before_insert.sql
-
+mysql < ../databases/triggers/trigger_cash_balance_after_insert.sql
+#
 mysql mydb -e \
     "
         set @prevPrevMonth = get_prev_prev_month(NOW());
@@ -33,4 +35,26 @@ mysql mydb -e \
         ('shaohua',	10,	'2018-03-01',@prevPrevMonth);
     "
 displayTables
+clearTables
+
+mysql mydb -e \
+    "
+        set @prevMonth = get_prev_month(NOW());
+        insert into cash_balance (item, amount, create_date, rental_month) values
+        ('shaohua',	10,	'2018-04-01',@prevMonth);
+    "
+displayTables
+clearTables
+
+#mysql mydb -e \
+#    "
+#        set @currMonth = get_curr_month(NOW());
+#        insert into cash_balance (item, amount, create_date, rental_month) values
+#        ('shaohua',	10,	'2018-05-01',@currMonth);
+#    "
+#displayTables
+#clearTables
+
+
+
 

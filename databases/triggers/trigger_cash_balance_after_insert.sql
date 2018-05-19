@@ -6,10 +6,24 @@ delimiter #
 
 create trigger trigger_cash_balance_after_insert after insert on cash_balance for each row
 begin
-    set @prevMonth = get_prev_month(NOW());
-   if new.rental_month = @prevMonth then
-		if not exists (select * from rental_month where `rental_month` = new.rental_month) then
-            insert into outstanding values (null, new.amount, new.rental_month, null);
+   declare prevMonth char(7);
+   declare currMonth char(7);
+   declare nextMonth char(7);
+
+   set prevMonth = get_prev_month(NOW());
+   set currMonth = get_prev_month(NOW());
+   set nextMonth = get_next_month(NOW());
+
+   if new.rental_month = prevMonth then
+        if not exists (select * from rental_month where `rental_month` = currMonth) then
+            insert into rental_month values (currMonth);
+            insert into outstanding values (null, new.amount, currMonth, null);
+        end if;
+
+   elseif new.rental_month = currMonth then
+        if not exists (select * from rental_month where `rental_month` = nextMonth) then
+            insert into rental_month values (nextMonth);
+            insert into outstanding values (null, new.amount, nextMonth, null);
         end if;
    end if;
 end;#

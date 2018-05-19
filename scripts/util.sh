@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 
 function clearTables {
-    mysql mydb -e "delete from cash_balance"
-    mysql mydb -e "delete from outstanding"
-    mysql mydb -e "delete from rental_month"
+    mysql mydb -e \
+        "
+            delete from cash_balance;
+            delete from outstanding;
+            delete from rental_month;
+        "
 }
 
 function displayTables {

@@ -8,8 +8,11 @@ create function get_prev_prev_month (
 )
 returns char(7)
 begin
-    set @firstDayDate = get_curr_month_first_day(now);
-    set @prevPrevMonth = DATE_FORMAT(SUBDATE(@firstDayDate, interval 2 month), "%Y-%m");
-    return @prevPrevMonth;
+    declare firstDayDate date;
+    declare prevPrevMonth char(7);
+
+    set firstDayDate = get_curr_month_first_day(now);
+    set prevPrevMonth = DATE_FORMAT(SUBDATE(firstDayDate, interval 2 month), "%Y-%m");
+    return prevPrevMonth;
 end#
 delimiter ;
