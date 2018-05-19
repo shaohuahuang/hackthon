@@ -30,30 +30,35 @@ mysql < ../databases/triggers/trigger_cash_balance_after_insert.sql
 #
 mysql mydb -e \
     "
-        set @prevPrevMonth = get_prev_prev_month(NOW());
         insert into cash_balance (item, amount, create_date, rental_month) values
-        ('shaohua',	10,	'2018-03-01',@prevPrevMonth);
+        ('shaohua',	10,	'2018-03-01',get_prev_prev_month(NOW()));
     "
 displayTables
 clearTables
 
 mysql mydb -e \
     "
-        set @prevMonth = get_prev_month(NOW());
         insert into cash_balance (item, amount, create_date, rental_month) values
-        ('shaohua',	10,	'2018-04-01',@prevMonth);
+        ('shaohua',	10,	'2018-04-01', get_prev_month(NOW()));
     "
 displayTables
 clearTables
 
-#mysql mydb -e \
-#    "
-#        set @currMonth = get_curr_month(NOW());
-#        insert into cash_balance (item, amount, create_date, rental_month) values
-#        ('shaohua',	10,	'2018-05-01',@currMonth);
-#    "
-#displayTables
-#clearTables
+mysql mydb -e \
+    "
+        insert into cash_balance (item, amount, create_date, rental_month) values
+        ('shaohua',	10,	'2018-05-01',get_curr_month(NOW()));
+    "
+displayTables
+clearTables
+
+mysql mydb -e \
+    "
+        insert into cash_balance (item, amount, create_date, rental_month) values
+        ('shaohua',	10,	'2018-05-01',get_next_month(NOW()));
+    "
+displayTables
+clearTables
 
 
 
