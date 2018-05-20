@@ -12,7 +12,7 @@ import * as selectActions from "../actions/select-actions"
 import * as outstandingActions from "../actions/outstanding-actions"
 import MonthlyRentalSlip from "./MonthlyRentalSlip"
 import AddItemDialog from "./AddItemDialog"
-import { isLastTwoMonth, getLastTwoMonths } from "../util/util"
+import { isLastTwoMonth, getLastTwoMonths, isLastSecond } from "../util/util"
 
 class RentalSlip extends React.Component {
     constructor() {
@@ -42,12 +42,14 @@ class RentalSlip extends React.Component {
 
     render() {
         const { rentalSlips, muiTheme, dialog, outstandings } = this.props
-        const lastTwoMonths = getLastTwoMonths()
+        const lastTwoMonths = getLastTwoMonths(rentalSlips)
         return (
             <List>
                 {Object.keys(rentalSlips).map(month => {
                     let monthlySlip = rentalSlips[month]
                     const isLastTwo = isLastTwoMonth(month, lastTwoMonths)
+                    const isLast =
+                        isLastTwo && !isLastSecond(rentalSlips, month)
                     if (!monthlySlip || !monthlySlip.length) monthlySlip = []
                     return (
                         <StyledListItem
@@ -77,6 +79,8 @@ class RentalSlip extends React.Component {
                                         ? outstandings[month].outstanding
                                         : null}
                                 </p>
+                                {isLast ? <p>YTD Outstanding: TODO</p> : null}
+
                                 {isLastTwo ? (
                                     <RaisedButton
                                         label="Add Item"
