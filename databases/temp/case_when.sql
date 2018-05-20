@@ -38,6 +38,9 @@ end#
 delimiter;
 
 
+
+-- case statements and case expression
+
 -- simple case ===> to check the value of an expression against a set of unique values
 -- CASE  case_expression
 --   WHEN when_expression_1 THEN commands
