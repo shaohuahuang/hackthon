@@ -1,17 +1,14 @@
 use mydb;
 
--- delete contents from all tables
 start transaction;
 
-SET SQL_SAFE_UPDATES = 0;
-delete from cash_balance;
-delete from outstanding;
-delete from rental_month;
-SET SQL_SAFE_UPDATES = 1;
+insert into rental_month values ('2018-02'), ('2018-03'), ('2018-04');
 
--- insert raw data
-
-insert into rental_month values ('2018-02'), ('2018-03'), ('2018-04'), ('2018-05');
+insert into outstanding (outstanding, rental_month) values
+(-154.08, '2018-02'),
+(-297.34, '2018-03'),
+(-469.54, '2018-04');
+-- (-120.59, '2018-05');
 
 insert into cash_balance (item, amount, create_date, rental_month) values
 ('Rent',	2200,	'2018-02-01'	,'2018-02'),
@@ -72,12 +69,5 @@ insert into cash_balance (item, amount, create_date, rental_month) values
 ('Neo',	-425	,'2018-05-01'	,'2018-05'),
 ('Gwanjoo',	-425	,'2018-05-01'	,'2018-05'),
 ('Grocery',	16.85	,'2018-05-01'	,'2018-05');
-
-
-insert into outstanding (outstanding, rental_month) values
-(-154.08, '2018-02'),
-(-297.34, '2018-03'),
-(-469.54, '2018-04'),
-(-120.59, '2018-05');
 
 commit;
