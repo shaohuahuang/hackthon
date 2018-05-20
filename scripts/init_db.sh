@@ -10,6 +10,7 @@ mysql < ../databases/tables/rental_month.sql
 
 mysql < ../databases/procedures/insert_rental_month_if_not_exist.sql
 mysql < ../databases/procedures/update_outstanding.sql
+mysql < ../databases/procedures/add_cash_balance_item.sql
 
 mysql < ../databases/functions/get_curr_month_first_day.sql
 mysql < ../databases/functions/get_prev_prev_month.sql
