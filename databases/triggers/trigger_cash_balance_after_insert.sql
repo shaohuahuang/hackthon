@@ -17,14 +17,23 @@ begin
    if new.rental_month = prevMonth then
         if not exists (select * from rental_month where `rental_month` = currMonth) then
             insert into rental_month values (currMonth);
+            insert into outstanding values (null, 0, currMonth, null);
         end if;
-        insert into outstanding values (null, new.amount, currMonth, null);
+        begin
+            declare currOutstanding float;
+            select outstanding into currOutstanding from outstanding where rental_month = currMonth;
+            update outstanding set outstanding = (new.amount + currOutstanding) where rental_month = currMonth;
+        end;
 
    elseif new.rental_month = currMonth then
         if not exists (select * from rental_month where `rental_month` = nextMonth) then
             insert into rental_month values (nextMonth);
         end if;
-        insert into outstanding values (null, new.amount, nextMonth, null);
+        begin
+            declare currOutstanding float;
+            select outstanding into currOutstanding from outstanding where rental_month = nextMonth;
+            update outstanding set outstanding = (new.amount + currOutstanding) where rental_month = nextMonth;
+        end;
    end if;
 end;#
 delimiter ;

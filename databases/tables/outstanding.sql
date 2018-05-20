@@ -4,7 +4,7 @@ drop table if exists outstanding;
 create table outstanding(
     id      INT AUTO_INCREMENT NOT NULL,
     outstanding  float not null,
-    rental_month VARCHAR(8) not null,
+    rental_month VARCHAR(8) unique not null,
     update_at timestamp,
     PRIMARY KEY (id),
     FOREIGN KEY (rental_month) REFERENCES rental_month(rental_month)
