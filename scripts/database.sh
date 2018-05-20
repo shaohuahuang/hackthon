@@ -36,29 +36,52 @@ mysql mydb -e \
 displayTables
 clearTables
 
+# insert a record for prev month
+#mysql mydb -e \
+#    "
+#        insert into cash_balance (item, amount, create_date, rental_month) values
+#        ('shaohua',	10,	'2018-04-01', get_prev_month(NOW()));
+#    "
+#displayTables
+#clearTables
+
+# insert two records for prev month
 mysql mydb -e \
     "
         insert into cash_balance (item, amount, create_date, rental_month) values
+        ('shaohua',	10,	'2018-04-01', get_prev_month(NOW())),
         ('shaohua',	10,	'2018-04-01', get_prev_month(NOW()));
     "
 displayTables
 clearTables
 
+# insert one record for curr month
+#mysql mydb -e \
+#    "
+#        insert into cash_balance (item, amount, create_date, rental_month) values
+#        ('shaohua',	10,	'2018-05-01',get_curr_month(NOW()));
+#    "
+#displayTables
+#clearTables
+
+# insert two records for curr month
 mysql mydb -e \
     "
         insert into cash_balance (item, amount, create_date, rental_month) values
-        ('shaohua',	10,	'2018-05-01',get_curr_month(NOW()));
+        ('shaohua',	10,	'2018-05-01', get_curr_month(NOW())),
+        ('shaohua',	10,	'2018-05-01', get_curr_month(NOW()));
     "
 displayTables
 clearTables
 
-mysql mydb -e \
-    "
-        insert into cash_balance (item, amount, create_date, rental_month) values
-        ('shaohua',	10,	'2018-05-01',get_next_month(NOW()));
-    "
-displayTables
-clearTables
+# insert one record for next month
+#mysql mydb -e \
+#    "
+#        insert into cash_balance (item, amount, create_date, rental_month) values
+#        ('shaohua',	10,	'2018-05-01',get_next_month(NOW()));
+#    "
+#displayTables
+#clearTables
 
 
 
