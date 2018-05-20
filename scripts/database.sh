@@ -77,43 +77,43 @@ clearTables
 
 #--------------------------For Curr Month----------------------------------
 # insert one record for curr month
-#mysql mydb -e \
-#    "
-#        insert into cash_balance (item, amount, create_date, rental_month) values
-#        ('shaohua',	10,	'2018-05-01',get_curr_month(NOW()));
-#    "
-#displayTables
-#clearTables
+mysql mydb -e \
+    "
+        insert into cash_balance (item, amount, create_date, rental_month) values
+        ('shaohua',	10,	'2018-05-01',get_curr_month(NOW()));
+    "
+displayTables
+clearTables
 
 # insert two records for curr month
-#mysql mydb -e \
-#    "
-#        insert into cash_balance (item, amount, create_date, rental_month) values
-#        ('shaohua',	10,	'2018-05-01', get_curr_month(NOW())),
-#        ('shaohua',	10,	'2018-05-01', get_curr_month(NOW()));
-#    "
-#displayTables
-#clearTables
+mysql mydb -e \
+    "
+        insert into cash_balance (item, amount, create_date, rental_month) values
+        ('shaohua',	10,	'2018-05-01', get_curr_month(NOW())),
+        ('shaohua',	10,	'2018-05-01', get_curr_month(NOW()));
+    "
+displayTables
+clearTables
 #
 ## delete a record for curr month
-#mysql mydb -e \
-#    "
-#        insert into cash_balance (item, amount, create_date, rental_month) values
-#        ('shaohua',	10,	'2018-05-01', get_curr_month(NOW()));
-#        delete from cash_balance;
-#    "
-#displayTables
-#clearTables
+mysql mydb -e \
+    "
+        insert into cash_balance (item, amount, create_date, rental_month) values
+        ('shaohua',	10,	'2018-05-01', get_curr_month(NOW()));
+        delete from cash_balance;
+    "
+displayTables
+clearTables
 
 # update a record for curr month
-#mysql mydb -e \
-#    "
-#        insert into cash_balance (item, amount, create_date, rental_month) values
-#        ('shaohua',	10,	'2018-05-01', get_curr_month(NOW()));
-#        update cash_balance set amount = 20;
-#    "
-#displayTables
-#clearTables
+mysql mydb -e \
+    "
+        insert into cash_balance (item, amount, create_date, rental_month) values
+        ('shaohua',	10,	'2018-05-01', get_curr_month(NOW()));
+        update cash_balance set amount = 20;
+    "
+displayTables
+clearTables
 
 #--------------------------For Next Month----------------------------------
 # insert one record for next month
