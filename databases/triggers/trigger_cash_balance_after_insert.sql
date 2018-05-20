@@ -28,6 +28,7 @@ begin
    elseif new.rental_month = currMonth then
         if not exists (select * from rental_month where `rental_month` = nextMonth) then
             insert into rental_month values (nextMonth);
+            insert into outstanding values (null, 0, nextMonth, null);
         end if;
         begin
             declare currOutstanding float;

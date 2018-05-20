@@ -27,15 +27,20 @@ mysql < ../databases/functions/get_curr_month.sql
 mysql < ../databases/functions/get_next_month.sql
 mysql < ../databases/triggers/trigger_cash_balance_before_insert.sql
 mysql < ../databases/triggers/trigger_cash_balance_after_insert.sql
-#
-mysql mydb -e \
-    "
-        insert into cash_balance (item, amount, create_date, rental_month) values
-        ('shaohua',	10,	'2018-03-01',get_prev_prev_month(NOW()));
-    "
-displayTables
-clearTables
+mysql < ../databases/triggers/trigger_cash_balance_after_delete.sql
 
+
+#--------------------------For Prev Prev Month----------------------------------
+#mysql mydb -e \
+#    "
+#        insert into cash_balance (item, amount, create_date, rental_month) values
+#        ('shaohua',	10,	'2018-03-01',get_prev_prev_month(NOW()));
+#    "
+#displayTables
+#clearTables
+
+
+#--------------------------For Prev Month----------------------------------
 # insert a record for prev month
 #mysql mydb -e \
 #    "
@@ -46,15 +51,26 @@ clearTables
 #clearTables
 
 # insert two records for prev month
-mysql mydb -e \
-    "
-        insert into cash_balance (item, amount, create_date, rental_month) values
-        ('shaohua',	10,	'2018-04-01', get_prev_month(NOW())),
-        ('shaohua',	10,	'2018-04-01', get_prev_month(NOW()));
-    "
-displayTables
-clearTables
+#mysql mydb -e \
+#    "
+#        insert into cash_balance (item, amount, create_date, rental_month) values
+#        ('shaohua',	10,	'2018-04-01', get_prev_month(NOW())),
+#        ('shaohua',	10,	'2018-04-01', get_prev_month(NOW()));
+#    "
+#displayTables
+#clearTables
 
+# delete a record for prev month
+#mysql mydb -e \
+#    "
+#        insert into cash_balance (item, amount, create_date, rental_month) values
+#        ('shaohua',	10,	'2018-04-01', get_prev_month(NOW()));
+#        delete from cash_balance;
+#    "
+#displayTables
+#clearTables
+
+#--------------------------For Curr Month----------------------------------
 # insert one record for curr month
 #mysql mydb -e \
 #    "
@@ -74,6 +90,18 @@ mysql mydb -e \
 displayTables
 clearTables
 
+# delete a record for curr month
+mysql mydb -e \
+    "
+        insert into cash_balance (item, amount, create_date, rental_month) values
+        ('shaohua',	10,	'2018-05-01', get_curr_month(NOW()));
+        delete from cash_balance;
+    "
+displayTables
+clearTables
+
+
+#--------------------------For Next Month----------------------------------
 # insert one record for next month
 #mysql mydb -e \
 #    "
