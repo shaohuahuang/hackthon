@@ -27,6 +27,7 @@ mysql < ../databases/functions/get_curr_month.sql
 mysql < ../databases/functions/get_next_month.sql
 mysql < ../databases/triggers/trigger_cash_balance_before_insert.sql
 mysql < ../databases/triggers/trigger_cash_balance_after_insert.sql
+mysql < ../databases/triggers/trigger_cash_balance_after_update.sql
 mysql < ../databases/triggers/trigger_cash_balance_after_delete.sql
 
 
@@ -70,6 +71,16 @@ mysql < ../databases/triggers/trigger_cash_balance_after_delete.sql
 #displayTables
 #clearTables
 
+# update a record for prev month
+#mysql mydb -e \
+#    "
+#        insert into cash_balance (item, amount, create_date, rental_month) values
+#        ('shaohua',	10,	'2018-04-01', get_prev_month(NOW()));
+#        update cash_balance set amount = 20;
+#    "
+#displayTables
+#clearTables
+
 #--------------------------For Curr Month----------------------------------
 # insert one record for curr month
 #mysql mydb -e \
@@ -81,25 +92,34 @@ mysql < ../databases/triggers/trigger_cash_balance_after_delete.sql
 #clearTables
 
 # insert two records for curr month
+#mysql mydb -e \
+#    "
+#        insert into cash_balance (item, amount, create_date, rental_month) values
+#        ('shaohua',	10,	'2018-05-01', get_curr_month(NOW())),
+#        ('shaohua',	10,	'2018-05-01', get_curr_month(NOW()));
+#    "
+#displayTables
+#clearTables
+#
+## delete a record for curr month
+#mysql mydb -e \
+#    "
+#        insert into cash_balance (item, amount, create_date, rental_month) values
+#        ('shaohua',	10,	'2018-05-01', get_curr_month(NOW()));
+#        delete from cash_balance;
+#    "
+#displayTables
+#clearTables
+
+# update a record for curr month
 mysql mydb -e \
     "
         insert into cash_balance (item, amount, create_date, rental_month) values
-        ('shaohua',	10,	'2018-05-01', get_curr_month(NOW())),
         ('shaohua',	10,	'2018-05-01', get_curr_month(NOW()));
+        update cash_balance set amount = 20;
     "
 displayTables
 clearTables
-
-# delete a record for curr month
-mysql mydb -e \
-    "
-        insert into cash_balance (item, amount, create_date, rental_month) values
-        ('shaohua',	10,	'2018-05-01', get_curr_month(NOW()));
-        delete from cash_balance;
-    "
-displayTables
-clearTables
-
 
 #--------------------------For Next Month----------------------------------
 # insert one record for next month
