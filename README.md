@@ -39,3 +39,17 @@ Outstanding of a rental-month, is actually the accumulation of all income and ex
 
 - Inside a store procedure, if one insert statement fail, will it terminate immediately?
   Answer: If will terminate even though the error is very minor
+  
+- How to migrate database? 
+    - first insert the outstanding and related rental_month records
+    - import cash_balance data
+
+
+
+
+
+
+
+
+
+

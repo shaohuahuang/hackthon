@@ -7,17 +7,6 @@ source ./util.sh
 #mysql mydb -e "select * from cash_balance"
 #mysql mydb -e "select * from outstanding"
 
-
-#--------------Test function get_rental_months------------------------------------
-
-#mysql < ../databases/functions/get_rental_months.sql
-#mysql mydb -e \
-#    "
-#        call get_rental_months('2018-12-23', @prevPrevMonth, @prevMonth, @currMonth, @nextMonth);
-#        select @prevPrevMonth, @prevMonth, @currMonth, @nextMonth;
-#    "
-
-
 #---------------Test insertion------------------------------------
 clearTables
 mysql < ../databases/functions/get_curr_month_first_day.sql
@@ -32,13 +21,14 @@ mysql < ../databases/triggers/trigger_cash_balance_after_delete.sql
 
 
 #--------------------------For Prev Prev Month----------------------------------
-#mysql mydb -e \
-#    "
-#        insert into cash_balance (item, amount, create_date, rental_month) values
-#        ('shaohua',	10,	'2018-03-01',get_prev_prev_month(NOW()));
-#    "
-#displayTables
-#clearTables
+# insert one record
+mysql mydb -e \
+    "
+        insert into cash_balance (item, amount, create_date, rental_month) values
+        ('shaohua',	10,	'2018-03-01',get_prev_prev_month(NOW()));
+    "
+displayTables
+clearTables
 
 
 #--------------------------For Prev Month----------------------------------
@@ -112,14 +102,14 @@ mysql < ../databases/triggers/trigger_cash_balance_after_delete.sql
 #clearTables
 
 # update a record for curr month
-mysql mydb -e \
-    "
-        insert into cash_balance (item, amount, create_date, rental_month) values
-        ('shaohua',	10,	'2018-05-01', get_curr_month(NOW()));
-        update cash_balance set amount = 20;
-    "
-displayTables
-clearTables
+#mysql mydb -e \
+#    "
+#        insert into cash_balance (item, amount, create_date, rental_month) values
+#        ('shaohua',	10,	'2018-05-01', get_curr_month(NOW()));
+#        update cash_balance set amount = 20;
+#    "
+#displayTables
+#clearTables
 
 #--------------------------For Next Month----------------------------------
 # insert one record for next month
