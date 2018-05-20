@@ -15,18 +15,9 @@ begin
    set nextMonth = get_next_month(NOW());
 
    if old.rental_month = prevMonth then
-        begin
-            declare currOutstanding float;
-            select outstanding into currOutstanding from outstanding where rental_month = currMonth;
-            update outstanding set outstanding = (currOutstanding - old.amount) where rental_month = currMonth;
-        end;
-
+        call update_outstanding(0 - old.amount, currMonth);
    elseif old.rental_month = currMonth then
-        begin
-            declare currOutstanding float;
-            select outstanding into currOutstanding from outstanding where rental_month = nextMonth;
-            update outstanding set outstanding = (currOutstanding - old.amount) where rental_month = nextMonth;
-        end;
+        call update_outstanding(0 - old.amount, nextMonth);
    end if;
 end;#
 delimiter ;
