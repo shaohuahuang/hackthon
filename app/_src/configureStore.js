@@ -1,10 +1,10 @@
 import { createStore, applyMiddleware } from "redux"
 import thunk from "redux-thunk"
-import appData from "./reducers"
+import todoApp from "./reducers"
 
 const configureStore = () => {
     const middlewares = [thunk]
-    const store = createStore(appData, applyMiddleware(...middlewares))
+    const store = createStore(todoApp, applyMiddleware(...middlewares))
     return store
 }
 
