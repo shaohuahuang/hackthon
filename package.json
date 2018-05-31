@@ -6,6 +6,8 @@
   "scripts": {
     "test": "mocha 'test/**/*.js' --compilers js:babel-core/register --require babel-polyfill",
     "lint": "eslint *",
+    "build": "webpack -d --watch",
+    "start": "node server/app.js",
     "format": "eslint --fix *",
     "precommit": "lint-staged",
     "flow": "flow"
