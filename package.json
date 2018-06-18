@@ -40,7 +40,12 @@
     "redux-promise": "^0.5.3",
     "redux-thunk": "^2.2.0",
     "request-promise": "^4.2.1",
-    "styled-components": "^2.1.2"
+    "styled-components": "^2.1.2",
+    "cfenv": "1.0.x",
+    "passport": "0.2.x",
+    "passport-idaas-openidconnect": "1.1.0",
+    "express-session": "1.11.3",
+    "cookie-parser": "1.4.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

@@ -22,6 +22,7 @@ ReactDOM.render(
                 <Switch>
                     <Route exact path="/" component={App} />
                     {/* <Route path="/:filter" component={App} />*/}
+                    <Route path="/auth" component={() => <div>Auth</div>} />
                 </Switch>
             </Router>
         </Provider>
