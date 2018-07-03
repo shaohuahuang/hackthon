@@ -99,7 +99,7 @@ app.get("/failure", (req, res) => {
 
 app.get("/hello", ensureAuthenticated, (req, res) => {
     const claims = req.user._json
-    console.log(claims)
+    console.log(req)
     res.send(
         `<h2> Hello ${claims.firstName}${claims.familyName}<br /> Welcome to BlueID Demo App</h2>`
     )
