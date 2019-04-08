@@ -9,10 +9,10 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --env=dev --host=0.0.0.0 --public=0.0.0.0:3000 -d",
-    "start-server": "nodemon --exec babel-node -- server/app.js",
+    "start-server": "babel-node server/app.js",
     "test": "mocha 'test/**/*.js' --compilers js:babel-core/register --require babel-polyfill",
     "lint": "eslint *",
-    "build": "webpack -d",
+    "build": "webpack -d --watch",
     "format": "eslint --fix *",
     "precommit": "lint-staged",
     "flow": "flow"
@@ -77,7 +77,6 @@
     "eslint-plugin-jsx-a11y": "2.2.3",
     "eslint-plugin-prettier": "2.2.0",
     "eslint-plugin-react": "7.4.0",
-    "favicons-webpack-plugin": "0.0.9",
     "file-loader": "^0.9.0",
     "flow-bin": "0.54.0",
     "html-webpack-plugin": "^2.28.0",

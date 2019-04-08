@@ -1,16 +1,33 @@
 import React from "react"
 import AppBar from "material-ui/AppBar"
 import Drawer from "material-ui/Drawer"
+import RaisedButton from "material-ui/RaisedButton"
+import AddItemDialog from "./AddItemDialog"
 
 class MyAppBar extends React.Component {
     constructor() {
         super()
-        this.state = { open: false }
+        this.state = {
+            open: false,
+            isAddItemDialogOpen: false
+        }
         this.onToggleMenu = this.onToggleMenu.bind(this)
+        this.handleOpen = this.handleOpen.bind(this)
+        this.handleClose = this.handleClose.bind(this)
     }
 
     onToggleMenu() {
         this.setState(() => ({ open: !this.state.open }))
+    }
+
+    handleOpen() {
+        return () => {
+            this.setState({ open: true })
+        }
+    }
+
+    handleClose() {
+        this.setState({ open: false })
     }
 
     render() {
@@ -20,7 +37,9 @@ class MyAppBar extends React.Component {
                     title="Title"
                     iconClassNameRight="muidocs-icon-navigation-expand-more"
                     onLeftIconButtonTouchTap={this.onToggleMenu}
-                />
+                >
+                    <RaisedButton label="Add Item" onClick={this.handleOpen} />
+                </AppBar>
                 <Drawer
                     width={200}
                     docked={false}
@@ -32,6 +51,11 @@ class MyAppBar extends React.Component {
                         onLeftIconButtonTouchTap={this.onToggleMenu}
                     />
                 </Drawer>
+                <AddItemDialog
+                    isOpen={this.state.open}
+                    handleClose={this.handleClose}
+                    onAdd={this.props.addItem}
+                />
             </div>
         )
     }

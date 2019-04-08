@@ -1,7 +1,6 @@
 const webpack = require("webpack")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const CircularDependencyPlugin = require("circular-dependency-plugin")
-const FaviconsWebpackPlugin = require("favicons-webpack-plugin")
 
 const path = require("path")
 
@@ -26,11 +25,6 @@ const CircularDependencyPluginConfig = new CircularDependencyPlugin({
     exclude: /a\.js|node_modules/,
     // add errors to webpack instead of warnings
     failOnError: true
-})
-
-const FaviconsWebpackPluginConfig = new FaviconsWebpackPlugin({
-    logo: "./app/public/favicon.png",
-    prefix: "icons-[hash]/"
 })
 
 const DefinePluginConfig = new webpack.DefinePlugin({
@@ -85,7 +79,6 @@ const config = {
     },
     plugins: [
         HTMLWebpackPluginConfig,
-        FaviconsWebpackPluginConfig,
         HotModuleReplacementPluginConfig,
         CircularDependencyPluginConfig,
         DefinePluginConfig

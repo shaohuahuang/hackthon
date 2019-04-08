@@ -10,7 +10,8 @@ class AddItemDialog extends React.Component {
         this.state = {
             item: "",
             amount: 0,
-            create_date: moment().format("YYYY-MM-DD")
+            create_date: moment().format("YYYY-MM-DD"),
+            rental_month: moment().format("YYYY-MM")
         }
         this.onChangeItem = this.onChangeItem.bind(this)
         this.onChangeAmount = this.onChangeAmount.bind(this)
@@ -37,9 +38,9 @@ class AddItemDialog extends React.Component {
     }
 
     onAdd() {
-        const { month, onAdd } = this.props
-        const { item, amount, create_date } = this.state
-        onAdd({ rental_month: month, item, amount, create_date })
+        const { onAdd } = this.props
+        const { item, amount, create_date, rental_month } = this.state
+        onAdd({ rental_month, item, amount, create_date })
         this.props.handleClose()
     }
 
