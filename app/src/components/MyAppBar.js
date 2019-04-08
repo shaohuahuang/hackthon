@@ -21,13 +21,11 @@ class MyAppBar extends React.Component {
     }
 
     handleOpen() {
-        return () => {
-            this.setState({ open: true })
-        }
+        this.setState({ isAddItemDialogOpen: true })
     }
 
     handleClose() {
-        this.setState({ open: false })
+        this.setState({ isAddItemDialogOpen: false })
     }
 
     render() {
@@ -52,7 +50,7 @@ class MyAppBar extends React.Component {
                     />
                 </Drawer>
                 <AddItemDialog
-                    isOpen={this.state.open}
+                    isOpen={this.state.isAddItemDialogOpen}
                     handleClose={this.handleClose}
                     onAdd={this.props.addItem}
                 />
