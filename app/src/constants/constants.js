@@ -9,5 +9,8 @@ export default {
     SELECT_ITEM: "SELECT_ITEM",
 
     // for outstanding
-    RECEIVE_OUTSTANDINGS: "RECEIVE_OUTSTANDINGS"
+    RECEIVE_OUTSTANDINGS: "RECEIVE_OUTSTANDINGS",
+
+    // Initial Outstanding
+    INITIAL_OUTSTANDING: 0
 }

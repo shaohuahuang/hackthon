@@ -1,7 +1,6 @@
 import React from "react"
 import { List, ListItem } from "material-ui/List"
 import { connect } from "react-redux"
-import moment from "moment"
 
 import styled from "styled-components"
 import muiThemeable from "material-ui/styles/muiThemeable"
@@ -10,6 +9,7 @@ import * as actions from "../actions"
 import * as selectActions from "../actions/select-actions"
 import * as outstandingActions from "../actions/outstanding-actions"
 import MonthlyRentalSlip from "./MonthlyRentalSlip"
+import {computeOutstanding} from "../util/util"
 
 class RentalSlip extends React.Component {
     componentDidMount() {
@@ -18,12 +18,13 @@ class RentalSlip extends React.Component {
 
     render() {
         const { rentalSlips, muiTheme  } = this.props
-        return (
+        const outstandings = computeOutstanding(rentalSlips)
+
+      return (
             <List>
                 {Object.keys(rentalSlips).map(month => {
                     let monthlySlip = rentalSlips[month]
-                    const isLast = month === moment().format("YYYY-MM")
-                    if (!monthlySlip || !monthlySlip.length) monthlySlip = []
+                    let outstanding = outstandings[month]
                   return <StyledListItem
                     key={month}
                     data-theme={muiTheme}
@@ -33,6 +34,8 @@ class RentalSlip extends React.Component {
                         key="monthly"
                         items={monthlySlip}
                         month={month}
+                        prevOutstanding={outstanding.prev}
+                        ytdOutstanding={outstanding.curr}
                       />
                     ]}
                   >
@@ -45,12 +48,11 @@ class RentalSlip extends React.Component {
                     >
                       <p>{month}</p>
                       <p>
-                        Outstanding:{" "}
+                        Outstanding:{outstanding.curr.toFixed(2)}
                         {/*{outstandings[month]*/}
                         {/*? outstandings[month].outstanding*/}
                         {/*: null}*/}
                       </p>
-                      {isLast ? <p>YTD Outstanding: TODO</p> : null}
                     </div>
                   </StyledListItem>
                 })}
