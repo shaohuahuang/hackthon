@@ -2,8 +2,7 @@
 Outstanding of a rental-month, is actually the accumulation of all income and expenditure previous to the current rental-month. 
  
 ### What to note? 
-- only items of last two months can be modified 
-- only outstanding of the last two month could be recalculated. 
+- rental_month 2019-01 is from `2018-12-23` to `2018-01-22`
 
 ### FAQ
 - When do you insert month into rental_month table? 

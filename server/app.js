@@ -1,7 +1,7 @@
-import moment from "moment"
 import rentalMonth from "./data/rental_month"
 import cashBalance from "./data/cash_balance"
 import outstanding from "./data/outstanding"
+import { getCurrRentalMonth } from "../common/util"
 
 const express = require("express")
 const bodyParser = require("body-parser")
@@ -20,8 +20,6 @@ app.use(express.static(path.join(__dirname, "..", "dist")))
 app.use(bodyParser.json({ limit: "100mb" }))
 
 app.use("/api", routes)
-
-const getCurrentRentalMonth = () => moment().format("YYYY-MM")
 
 app.get("/api/outstandings", (req, res) => {
     outstanding
@@ -53,7 +51,7 @@ app.get("/api/rental-slips", (req, res) => {
                 }
                 return memo
             }, {})
-            const curr = getCurrentRentalMonth()
+            const curr = getCurrRentalMonth()
             if (!itemsGroupByRentalMonth[curr])
                 itemsGroupByRentalMonth[curr] = []
             res.json(itemsGroupByRentalMonth)
