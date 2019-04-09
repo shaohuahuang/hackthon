@@ -2,6 +2,9 @@ import React from "react"
 import AppBar from "material-ui/AppBar"
 import Drawer from "material-ui/Drawer"
 import RaisedButton from "material-ui/RaisedButton"
+import { connect } from "react-redux"
+import { addItem } from "../actions"
+
 import AddItemDialog from "./AddItemDialog"
 
 class MyAppBar extends React.Component {
@@ -59,4 +62,4 @@ class MyAppBar extends React.Component {
     }
 }
 
-export default MyAppBar
+export default connect(null, { addItem })(MyAppBar)

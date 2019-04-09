@@ -21,23 +21,6 @@ app.use(bodyParser.json({ limit: "100mb" }))
 
 app.use("/api", routes)
 
-app.get("/api/outstandings", (req, res) => {
-    outstanding
-        .getAll()
-        .then(rows => {
-            res.json(
-                rows.reduce((memo, row) => {
-                    memo[row.rental_month] = row
-                    return memo
-                }, {})
-            )
-        })
-        .catch(err => {
-            console.log(err)
-            res.json({ error: "fail to get outstanding" })
-        })
-})
-
 app.get("/api/rental-slips", (req, res) => {
     cashBalance
         .getAll()
@@ -66,7 +49,7 @@ app.post("/api/rental-slips", (req, res) => {
     const item = req.body
     cashBalance
         .addItem(item)
-        .then(returnedItem => res.json(returnedItem[0][0]))
+        .then(() => res.json({ success: "success" }))
         .catch(err => {
             console.log(err)
             res.json({ error: err.message })

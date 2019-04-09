@@ -21,12 +21,10 @@ const addItem = item =>
     db
         .getConnection()
         .then(conn =>
-            conn.query("call add_cash_balance_item(?,?,?,?)", [
-                item.item,
-                item.amount,
-                item.create_date,
-                item.rental_month
-            ])
+            conn.query(
+                "insert into cash_balance (item, amount, rental_month) values (?, ?, ?)",
+                [item.item, item.amount, item.rental_month]
+            )
         )
         .catch(err => console.log(err))
 

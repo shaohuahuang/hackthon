@@ -3,8 +3,6 @@
 import constants from "../constants/constants"
 import { type Item } from "../types/item"
 // import { isLastSecond, getLastTwoMonthsObj } from "../util/util"
-import { fetchOutstandings } from "./outstanding-actions"
-
 const receiveRentalSlips = rentalSlips => ({
     type: constants.RECEIVE_RENTAL_SLIPS,
     data: rentalSlips
@@ -32,7 +30,6 @@ export const addItem = (item: Item): Function => (dispatch, store) =>
         .then(res => {
             if (!res.error) {
                 dispatch(addItemSuccess(res))
-                dispatch(fetchOutstandings()) // need to fetch the outstanding again upon modification
             } else alert(res.error)
         })
 
@@ -52,7 +49,6 @@ export const deleteItem = (item: Item): Function => dispatch =>
         .then(res => {
             if (res.success) {
                 dispatch(deleteItemSuccess(item))
-                dispatch(fetchOutstandings())
             } else alert(res.error)
         })
 
@@ -75,6 +71,5 @@ export const updateItem = (item: Item): Function => dispatch =>
         .then(res => {
             if (!res.error) {
                 dispatch(updateItemSuccess(item))
-                dispatch(fetchOutstandings())
             } else alert(res.error)
         })
