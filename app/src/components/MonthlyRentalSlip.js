@@ -51,7 +51,6 @@ class MonthlyRentalSlip extends React.Component {
                         <TableRow>
                             <TableHeaderColumn>Item</TableHeaderColumn>
                             <TableHeaderColumn>Amount</TableHeaderColumn>
-                            <TableHeaderColumn>Date</TableHeaderColumn>
                             <TableHeaderColumn>Edit</TableHeaderColumn>
                             <TableHeaderColumn>Delete</TableHeaderColumn>
                         </TableRow>
@@ -61,12 +60,6 @@ class MonthlyRentalSlip extends React.Component {
                             <TableRow key={item.id}>
                                 <TableRowColumn>{item.item}</TableRowColumn>
                                 <TableRowColumn>{item.amount}</TableRowColumn>
-                                <TableRowColumn>
-                                    {moment(item.create_date).format(
-                                        "YYYY-MM-DD"
-                                    )}
-                                </TableRowColumn>
-
                                 <TableRowColumn>
                                     <IconButton
                                         onClick={() =>
