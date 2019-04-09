@@ -10,7 +10,6 @@ import {
 import { connect } from "react-redux"
 import IconButton from "material-ui/IconButton"
 import FontIcon from "material-ui/FontIcon"
-import moment from "moment"
 
 import DeleteDialog from "./DeleteDialog"
 import UpdateItemDialog from "./UpdateItemDialog"
@@ -102,7 +101,7 @@ class MonthlyRentalSlip extends React.Component {
                     isOpen={this.state.isUpdateDialogOpen}
                     onClose={this.onToggleUpdateDialog}
                     updateItem={this.props.updateItem}
-                    item={dialog.selectedItem}
+                    slipItem={dialog.selectedItem}
                 />
             </div>
         )

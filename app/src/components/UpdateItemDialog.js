@@ -10,7 +10,7 @@ class UpdateItemDialog extends React.Component {
         this.state = {
             item: null,
             amount: null,
-            create_date: null
+            rental_month: null
         }
         this.onChangeItem = this.onChangeItem.bind(this)
         this.onChangeAmount = this.onChangeAmount.bind(this)
@@ -31,22 +31,21 @@ class UpdateItemDialog extends React.Component {
         }))
     }
 
-    onChangeDate(e, date) {
+    onChangeDate(e, rentalMonth) {
         this.setState(() => ({
-            create_date: date
+            rental_month: rentalMonth
         }))
     }
 
     onUpdate() {
         const { updateItem } = this.props
-        const { rental_month, id } = this.props.item
-        const { item, amount, create_date: createDate } = this.state
+        const { id } = this.props.slipItem
+        const { item, amount, rental_month: rentalMonth } = this.state
         updateItem({
-            rental_month,
             id,
-            item: item || this.props.item.item,
-            amount: amount || this.props.item.amount,
-            create_date: createDate || this.props.item.create_date
+            item: item || this.props.slipItem.item,
+            amount: amount || this.props.slipItem.amount,
+            rental_month: rentalMonth || this.props.slipItem.rental_month
         })
         this.onClose()
     }
@@ -62,8 +61,8 @@ class UpdateItemDialog extends React.Component {
     }
 
     render() {
-        if (!this.props.item) return null
-        const { item, amount, create_date: createDate } = this.props.item
+        if (!this.props.slipItem) return null
+        const { item, amount, rental_month: rentalMonth } = this.props.slipItem
         const actionButtons = [
             <RaisedButton
                 label="Update"
@@ -96,9 +95,7 @@ class UpdateItemDialog extends React.Component {
                 <br />
                 <TextField
                     id="create_date"
-                    defaultValue={moment(
-                        this.state.create_date || createDate
-                    ).format("YYYY-MM-DD")}
+                    defaultValue={this.state.rental_month || rentalMonth}
                     onChange={this.onChangeDate}
                 />
             </Dialog>
