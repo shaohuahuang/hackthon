@@ -30,13 +30,13 @@ const addItem = item =>
         )
         .catch(err => console.log(err))
 
-const updateItem = ({ id, item, amount, create_date: createDate }) =>
+const updateItem = ({ id, item, amount, rental_month: rentalMonth }) =>
     db
         .getConnection()
         .then(conn =>
             conn.query(
-                "update cash_balance set item= ?, amount= ?, create_date= ? where id = ?",
-                [item, amount, moment(createDate).format("YYYY-MM-DD"), id]
+                "update cash_balance set item= ?, amount= ?, rental_month= ? where id = ?",
+                [item, amount, rentalMonth, id]
             )
         )
 

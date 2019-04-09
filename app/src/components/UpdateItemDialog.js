@@ -2,7 +2,6 @@ import React from "react"
 import Dialog from "material-ui/Dialog"
 import RaisedButton from "material-ui/RaisedButton"
 import TextField from "material-ui/TextField"
-import moment from "moment"
 
 class UpdateItemDialog extends React.Component {
     constructor(props) {
@@ -55,7 +54,7 @@ class UpdateItemDialog extends React.Component {
         this.setState(() => ({
             item: null,
             amount: null,
-            create_date: null
+            rental_month: null
         }))
         this.props.onClose()
     }
