@@ -20,12 +20,14 @@ const addItem = item =>
     db
         .getConnection()
         .then(conn => {
-            conn.query(
+            const result = conn.query(
                 "insert into cash_balance (item, amount, rental_month) values (?, ?, ?)",
                 [item.item, item.amount, item.rental_month]
             )
-            conn.end()
+            conn.release()
+            return result
         })
+        .then(result => ({ id: result.insertId, ...item }))
         .catch(err => console.log(err))
 
 const updateItem = ({ id, item, amount, rental_month: rentalMonth }) =>
@@ -34,14 +36,14 @@ const updateItem = ({ id, item, amount, rental_month: rentalMonth }) =>
             "update cash_balance set item= ?, amount= ?, rental_month= ? where id = ?",
             [item, amount, rentalMonth, id]
         )
-        conn.end()
+        conn.release()
         return item
     })
 
 const deleteItem = id =>
     db.getConnection().then(conn => {
         const result = conn.query("delete from cash_balance where id = ?", id)
-        conn.end()
+        conn.release()
         return result
     })
 
