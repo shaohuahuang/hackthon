@@ -32,12 +32,11 @@ const addItem = item =>
 
 const updateItem = ({ id, item, amount, rental_month: rentalMonth }) =>
     db.getConnection().then(conn => {
-        const item = conn.query(
+        conn.query(
             "update cash_balance set item= ?, amount= ?, rental_month= ? where id = ?",
             [item, amount, rentalMonth, id]
         )
         conn.release()
-        return item
     })
 
 const deleteItem = id =>

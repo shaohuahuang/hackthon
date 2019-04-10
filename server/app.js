@@ -1,6 +1,5 @@
 import rentalMonth from "./data/rental_month"
 import cashBalance from "./data/cash_balance"
-import outstanding from "./data/outstanding"
 import { getCurrRentalMonth } from "../common/util"
 
 const express = require("express")
@@ -49,7 +48,7 @@ app.post("/api/rental-slips", (req, res) => {
     const item = req.body
     cashBalance
         .addItem(item)
-        .then(() => res.json({ success: "success" }))
+        .then(returnedItem => res.json(returnedItem))
         .catch(err => {
             console.log(err)
             res.json({ error: err.message })
@@ -60,7 +59,7 @@ app.put("/api/rental-slips", (req, res) => {
     const item = req.body
     cashBalance
         .updateItem(item)
-        .then(() => res.json({ success: true }))
+        .then(() => res.json({ success: "success" }))
         .catch(err => {
             console.log(err)
             res.json({ error: err.message })
