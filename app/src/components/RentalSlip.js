@@ -1,6 +1,7 @@
 import React from "react"
 import { List, ListItem } from "material-ui/List"
 import { connect } from "react-redux"
+import { Link } from "react-router-dom"
 
 import styled from "styled-components"
 import muiThemeable from "material-ui/styles/muiThemeable"
@@ -47,6 +48,16 @@ class RentalSlip extends React.Component {
                                 }}
                             >
                                 <p>{month}</p>
+                                <Link
+                                    to={{
+                                        pathname: "/analytics",
+                                        search: `?rental_month=${month}&prev=${outstanding.prev.toFixed(
+                                            2
+                                        )}&curr=${outstanding.curr.toFixed(2)}`
+                                    }}
+                                >
+                                    Report
+                                </Link>
                                 <p>Outstanding:{outstanding.curr.toFixed(2)}</p>
                             </div>
                         </StyledListItem>

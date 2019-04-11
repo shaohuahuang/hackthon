@@ -1,3 +1,4 @@
+import moment from "moment"
 import constants from "../constants/constants"
 
 export const getOutstandingOfLatestMonth = (
@@ -22,4 +23,19 @@ export const computeOutstanding = rentalSlips => {
         ytdOutstanding += sum
     })
     return copy
+}
+
+export const getPeriod = rentalMonth => {
+    const day = `${rentalMonth}-23`
+
+    return {
+        prev: `${moment(day)
+            .subtract(2, "month")
+            .format("YYYY/MM/DD")} - ${moment(day)
+            .subtract(1, "month")
+            .format("YYYY/MM/DD")}`,
+        curr: `${moment(day)
+            .subtract(1, "month")
+            .format("YYYY/MM/DD")} - ${moment(day).format("YYYY/MM/DD")}`
+    }
 }
