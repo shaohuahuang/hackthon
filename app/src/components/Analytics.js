@@ -10,18 +10,32 @@ const Analytics = props => {
     const currOutstanding = params.get("curr")
     const { curr } = getPeriod(rentalMonth)
     return (
-        <div>
-            <p style={{ lineHeight: "0" }}>Outstanding: {prevOutstanding}</p>
+        <div style={{ marginLeft: "10px", width: "300px" }}>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <div>Outstanding:</div>
+                <div> {prevOutstanding} </div>
+            </div>
+            <br />
+
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <div>Period:</div>
+                <div> {curr} </div>
+            </div>
 
             {props.rentalSlips[rentalMonth].map(slipItem => (
-                <p
-                    style={{ lineHeight: "0" }}
+                <div
                     key={slipItem.id}
-                >{`${slipItem.item}: ${slipItem.amount}`}</p>
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                    <div>{slipItem.item}:</div>
+                    <div> {slipItem.amount} </div>
+                </div>
             ))}
 
-            <p style={{ lineHeight: "0" }}>Period: {curr}</p>
-            <p style={{ lineHeight: "0" }}>Outstanding: {currOutstanding}</p>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <div>Outstanding:</div>
+                <div> {currOutstanding} </div>
+            </div>
         </div>
     )
 }
